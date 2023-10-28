@@ -1,8 +1,8 @@
 function AboutProject() {
   return (
-    <main className="aboutProject-container">
+    <section className="aboutProject-container">
       <h2 className="aboutProject-title">О проекте</h2>
-      <section className="aboutProject-info">
+      <div className="aboutProject-info">
         <article className="aboutProject-info-content">
           <h3 className="aboutProject-info-content-title">
             Дипломный проект включал 5 этапов
@@ -21,8 +21,8 @@ function AboutProject() {
             соблюдать, чтобы успешно защититься.
           </p>
         </article>
-      </section>
-      <section className="aboutProject-chart">
+      </div>
+      <div className="aboutProject-chart">
         <div className="aboutProject-chart-box-first">
           <p className="aboutProject-chart-time aboutProject-chart-time_black">
             1 неделя
@@ -35,8 +35,8 @@ function AboutProject() {
           </p>
           <p className="aboutProject-chart-name">Front-end</p>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }
 

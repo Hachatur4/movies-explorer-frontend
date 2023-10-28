@@ -18,7 +18,7 @@ function Login() {
       type: "email",
       className: "form__input-log-reg form__input-email",
       formFieldClassName: "form__field",
-      placeholder: "Email",
+      placeholder: "",
       errorMessage:"Некорректное поле E-mail",
       errorMessageClassName: "email-input-error",
       label: "E-mail",
@@ -31,7 +31,7 @@ function Login() {
       type: "password",
       className: "form__input-log-reg form__input-password",
       formFieldClassName: "form__field",
-      placeholder: "Пароль",
+      placeholder: "",
       errorMessage: "Некорректное поле Password (Используйте только буквы и цифры)",
       errorMessageClassName: "password-input-error",
       label: "Пароль",
@@ -53,7 +53,7 @@ function Login() {
   }
 
   return (
-    <div className="signInPage">
+    <section className="signInPage">
         <div className="signIn__container">
           <Link to="/">
           <img
@@ -76,7 +76,7 @@ function Login() {
             linkRoadTitle={'Регистрация'}
           />
         </div>
-      </div>
+      </section>
   );
 } 
 

@@ -3,9 +3,9 @@ import AboutMePhoto from "../../../images/AboutMePhoto.jpg";
 
 function AboutMe() {
   return (
-    <main className="aboutMe-container">
+    <section className="aboutMe-container">
       <h2 className="aboutMe-title">Студент</h2>
-      <section className="aboutMe-info">
+      <div className="aboutMe-info">
         <div className="aboutMe-profile-container">
           <h3 className="aboutMe-profile-title">Хачатур</h3>
           <h2 className="aboutMe-profile-specialization">
@@ -25,8 +25,8 @@ function AboutMe() {
           </Link>
         </div>
         <img className="aboutMe-profile-image" src={AboutMePhoto} alt="Фото автора" />
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }
 

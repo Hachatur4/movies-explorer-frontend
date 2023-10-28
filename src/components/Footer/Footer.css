@@ -1,5 +1,6 @@
 .footer-container {
   width: 100%;
+  max-width: 1280px;
   box-sizing: border-box;
   padding-left: 70px;
   padding-right: 70px;
@@ -41,7 +42,7 @@
 .footer-information__text:nth-child(1) {
   margin-right: 20px;
 }
-.footer-information__tex_year {
+.footer-information__text-year {
   width: 100%;
 }
 .footer-information__box {

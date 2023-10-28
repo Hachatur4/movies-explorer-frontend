@@ -71,7 +71,7 @@ function Profile() {
   }
 
   return (
-    <div className="profile-page">
+    <section className="profile-page">
       <div className="profile-container">
         <h3 className="page__title">{`Привет, ${"Пока статично"}!`}</h3>
         <form
@@ -118,7 +118,7 @@ function Profile() {
           </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

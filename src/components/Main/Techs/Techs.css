@@ -1,9 +1,15 @@
+.techs-block {
+  width: 100vw;
+  background-color: #272727;
+  display: flex;
+  justify-content: center;
+}
 .techs-container {
   width: 100%;
+  max-width: 1280px;
   box-sizing: border-box;
   padding-left: 70px;
   padding-right: 70px;
-  background-color: #272727;
 }
 .techs-title {
   font-family: "Inter", "Sans-serif", "Arial";

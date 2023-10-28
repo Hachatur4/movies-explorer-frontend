@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 function Footer() {
   const location = useLocation();
   return (
-    <div
+    <footer
       className={`${
         location.pathname === "/" ||
         location.pathname === "/movies" ||
@@ -15,7 +15,7 @@ function Footer() {
         Учебный проект Яндекс.Практикум х BeatFilm.
       </h2>
       <div className="footer-information">
-        <p className="footer-information__text footer-information__tex_year">
+        <p className="footer-information__text footer-information__text-year">
           © 2023
         </p>
         <div className="footer-information__box">
@@ -23,7 +23,7 @@ function Footer() {
           <p className="footer-information__text">Github</p>
         </div>
       </div>
-    </div>
+    </footer>
   );
 }
 

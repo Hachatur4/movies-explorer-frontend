@@ -19,7 +19,7 @@ function Register() {
       type: "text",
       className: "form__input-log-reg form__input-name",
       formFieldClassName: "form__field",
-      placeholder: "Имя",
+      placeholder: "",
       errorMessage:"Некорректное поле Имя",
       errorMessageClassName: "name-input-error",
       label: "Имя",
@@ -32,7 +32,7 @@ function Register() {
       type: "email",
       className: "form__input-log-reg form__input-email",
       formFieldClassName: "form__field",
-      placeholder: "Email",
+      placeholder: "",
       errorMessage:"Некорректное поле E-mail",
       errorMessageClassName: "email-input-error",
       label: "E-mail",
@@ -67,7 +67,7 @@ function Register() {
   }
 
   return (
-    <div className="signInPage">
+    <section className="signInPage">
         <div className="signIn__container">
           <Link to="/">
           <img
@@ -90,7 +90,7 @@ function Register() {
             linkRoadTitle={'Войти'}
           />
         </div>
-      </div>
+      </section>
   );
 } 
 
