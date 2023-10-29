@@ -1,0 +1,79 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+}
+.card__image {
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.card__description {
+  display: flex;
+  width: 100%;
+  margin-top: 14px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #424242;
+  padding-bottom: 25px;
+}
+.card__title {
+  font-family: "Inter", "Sans-serif", "Arial";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #ffffff;
+}
+.card__delete-button {
+  width: 24px;
+  height: 24px;
+  background-image: url(../../../images/card-delete-button.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 50%;
+  border: none;
+  background-color: #313131;
+  opacity: 0;
+}
+.card__delete-button:hover {
+  background-image: url(../../../images/card-delete-button.svg);
+  opacity: 1;
+}
+
+.card__like-button {
+  width: 24px;
+  height: 24px;
+  background-image: url(../../../images/card-dislike.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 50%;
+  border: none;
+  background-color: #313131;
+}
+.card__like-button_active {
+  background-image: url(../../../images/card-like.svg);
+}
+.card__duration {
+  font-family: "Inter", "Sans-serif", "Arial";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #8b8b8b;
+  margin-top: 6px;
+}
+
+@media screen and (min-width: 500px) and (max-width: 780px) {
+  .card {
+    width: 339px;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 499px) {
+  .card {
+    width: 300px;
+  }
+  .card__title {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

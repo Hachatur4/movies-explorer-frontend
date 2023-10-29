@@ -1,0 +1,198 @@
+.navTab-page {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+.navTab-container {
+  max-width: 1280px;
+  position: relative;
+  width: 100%;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding-left: 70px;
+  padding-right: 70px;
+}
+.navTab-page_disabled {
+  display: none;
+}
+.navTab-page_theme {
+  background-color: #073042;
+}
+.navTab-box {
+  margin-left: 45px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.navTab-item {
+  text-decoration: none;
+  font-family: "Inter", "Sans-serif", "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  color: #ffffff;
+  min-width: max-content;
+}
+.navTab-item:first-child {
+  margin-right: 16px;
+}
+.navTab-item:active {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #ffffff;
+}
+.navTab-item:hover {
+  opacity: 70%;
+}
+.navTab-profile-item {
+  text-decoration: none;
+  font-family: "Inter", "Sans-serif", "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  color: #ffffff;
+  width: 116px;
+  height: 30px;
+  background-color: #202020;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navTab-profile-item_theme {
+  background-color: #073042;
+}
+.navTab-profile-item:hover {
+  opacity: 70%;
+}
+.navTab-item-icon {
+  display: flex;
+  text-align: center;
+  width: 26px;
+  height: 26px;
+  margin-left: 15px;
+  background-repeat: no-repeat;
+  background-size: auto;
+  border-radius: 50px;
+  background-color: #313131;
+  background-image: url(../../../images/navTab-profile-icon.svg);
+  background-position: center;
+}
+.navTab-item-icon_theme {
+  background-color: #0f4157;
+}
+.navTab-mobile-menu {
+  display: none;
+}
+
+.navTab-mobile__burger {
+  display: none;
+}
+
+@media screen and (min-width: 320px) and (max-width: 780px) {
+  .navTab-box {
+    display: none;
+  }
+  .navTab-profile-item {
+    display: none;
+  }
+  .navTab-container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .navTab-mobile__burger {
+    display: block;
+    width: 44px;
+    height: 44px;
+  }
+  .navTab-mobile__burger:hover {
+    opacity: 70%;
+  }
+
+  .navTab-mobile-menu {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 68vw;
+    height: 100vh;
+    background-color: #202020;
+    flex-direction: column;
+    z-index: 1;
+    transition: visibility 0s linear 0.2s, opacity 0.4s linear;
+    visibility: hidden;
+  }
+  .navTab-mobile-menu_active {
+    visibility: visible;
+    z-index: 1;
+  }
+  .navTab-mobile-menu__close {
+    display: flex;
+    align-self: flex-end;
+    margin-right: 10px;
+    margin-top: 11px;
+    background-image: url(../../../images/navTab-menu-icon-close.svg);
+    width: 45px;
+    height: 45px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: rotate(360deg);
+  }
+  .navTab-mobile-menu__close:hover {
+    opacity: 70%;
+  }
+  .navTab-mobile-links {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 103px;
+    height: 100%;
+  }
+  .navTab-mobile-item {
+    text-decoration: none;
+    font-family: "Inter", "Sans-serif", "Arial";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: #ffffff;
+    margin-bottom: 28px;
+  }
+  .navTab-mobile-item:hover {
+    opacity: 70%;
+  }
+
+  .navTab-mobile-item:active {
+    border-bottom: 2px solid #ffffff;
+  }
+  .navTab-mobile-profile-item {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 90px;
+    text-decoration: none;
+    font-family: "Inter", "Sans-serif", "Arial";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 12px;
+    color: #ffffff;
+    width: 116px;
+    height: 30px;
+    background-color: #202020;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .navTab-mobile-profile-item:hover {
+    opacity: 70%;
+  }
+}
