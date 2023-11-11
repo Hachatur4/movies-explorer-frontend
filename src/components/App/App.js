@@ -41,7 +41,6 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setpreloaderActive(true)
     handleTokenCheck();
   }, []);
 
@@ -55,7 +54,6 @@ function App() {
           if (res) {
             setCurrentUser(res.user);
             setLoggedIn(true);
-            setpreloaderActive(false)
           }
         })
         .catch((err) => {
