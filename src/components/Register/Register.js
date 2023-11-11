@@ -48,7 +48,7 @@ function Register({
       type: "password",
       className: "form__input-log-reg form__input-password",
       formFieldClassName: "form__field",
-      placeholder: "Пароль",
+      placeholder: "",
       errorMessage:
         "Некорректное поле Password (Используйте только буквы и цифры)",
       errorMessageClassName: "password-input-error",
