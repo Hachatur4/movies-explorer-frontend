@@ -7,7 +7,7 @@ function Profile({
   setProfileErrorText,
   handleUpdateUser,
   handleLogout,
-  setpreloaderActive
+  setpreloaderActive,
 }) {
   const [values, setValues] = useState({
     name: "",
@@ -22,13 +22,14 @@ function Profile({
       type: "text",
       className: "form__input-profile form__input-profile__name",
       formFieldClassName: "form__field-profile",
-      placeholder: "Имя",
+      placeholder: "",
       errorMessage: "Некорректное поле Имя",
       errorMessageClassName: "profile-name-input-error",
       label: "",
       pattern: "[A-Za-zА-Яа-яЁё]{2,40}",
       required: true,
       disabled: true,
+      value: currentUser.name,
     },
     {
       id: "email-input",
@@ -36,13 +37,14 @@ function Profile({
       type: "email",
       className: "form__input-profile form__input-email",
       formFieldClassName: "form__field-profile",
-      placeholder: "Email",
+      placeholder: "",
       errorMessage: "Некорректное поле E-mail",
       errorMessageClassName: "profile-email-input-error",
       label: "",
       pattern: "^([^ ]+@[^ ]+.[a-z]{2,6}|)$",
       required: true,
       disabled: true,
+      value: currentUser.email,
     },
   ];
   const onChangeValues = (e) => {
@@ -76,9 +78,8 @@ function Profile({
     document.querySelector(".profile-button-container").style.display = "flex";
     document.querySelector(".form__submit-button-profile").style.display =
       "none";
-    document.querySelector(".form-input-value-box").style.display = "flex";
   }
-  
+
   function editButton() {
     document.querySelectorAll(".form__input-profile").forEach((input) => {
       return input.removeAttribute("disabled");
@@ -86,7 +87,6 @@ function Profile({
     document.querySelector(".profile-button-container").style.display = "none";
     document.querySelector(".form__submit-button-profile").style.display =
       "block";
-    document.querySelector(".form-input-value-box").style.display = "none";
   }
 
   return (
@@ -101,6 +101,10 @@ function Profile({
         >
           <fieldset className="form-profile__set">
             <div className="form-input-block">
+              <div className="form-input-value-box">
+                <h3 className="form-input-placeholder">{"Имя"}</h3>
+                <h3 className="form-input-placeholder">{"E-mail"}</h3>
+              </div>
               {inputs.map((input) => (
                 <FormInput
                   key={input.id}
@@ -109,13 +113,9 @@ function Profile({
                   setErrorStatus={setErrorStatus}
                   errorStatus={errorStatus}
                   valueCheck={values}
-                  button='form__submit-button-profile'
+                  button="form__submit-button-profile"
                 />
               ))}
-              <div className="form-input-value-box">
-                <h3 className="form-input-value">{currentUser.name}</h3>
-                <h3 className="form-input-value">{currentUser.email}</h3>
-              </div>
             </div>
             <div className="buttonErrorBox">
               <span className="serverErrorStatusProfile">{errorText}</span>

@@ -14,12 +14,13 @@ const FormInput = (props) => {
     className,
     formFieldClassName,
     pattern,
+    value,
     ...inputProps
   } = props;
   const [inputValue, setInputValue] = useState({
     inputName: "",
   });
-
+console.log(value)
   const patternTest = pattern;
   const regexPattern = new RegExp(patternTest);
   const errorMessageText = document.querySelector(`.${errorMessageClassName}`);
@@ -55,6 +56,7 @@ const FormInput = (props) => {
         onChange={onChange}
         pattern={pattern}
         onKeyUp={valid}
+        defaultValue={value}
       />
       <span className={`form__input-error ${errorMessageClassName}`}>
         {errorMessage}
