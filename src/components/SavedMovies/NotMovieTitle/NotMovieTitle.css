@@ -1,0 +1,21 @@
+.notMovieTitle__box {
+  width: 100%;
+  height: 100vh;
+  margin-top: 70px;
+  text-align: center;
+}
+.notMovieTitle__title {
+  font-family: "Inter", "Sans-serif", "Arial";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 20px;
+  color: #8b8b8b;
+}
+
+@media screen and (min-width: 320px) and (max-width: 699px) {
+  .notMovieTitle__title {
+    font-size: 15px;
+    line-height: 50px;
+  }
+}

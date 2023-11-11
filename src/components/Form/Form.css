@@ -27,11 +27,22 @@
 .form-link:hover {
   opacity: 70%;
 }
-
+.serverErrorStatus {
+  text-align: center;
+  width: 100%;
+  display: block;
+  font-family: "Inter", "Sans-serif", "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #ee3465;
+  margin-top: 126px;
+}
 .form__submit-button-log-reg {
   width: 396px;
   height: 45px;
-  margin-top: 126px;
+  margin-top: 20px;
   margin-bottom: 14px;
   border-radius: 3px;
   padding: 0;
@@ -48,6 +59,11 @@
   color: #ffffff;
 }
 
+.form__submit-button-log-reg_unvalid {
+  color: #c2c2c2;
+  background-color: #f8f8f8;
+}
+
 .form__submit-button-log-reg:hover {
   opacity: 80%;
 }
@@ -56,6 +72,7 @@
   border: none;
   padding: 0;
   margin: 0;
+  position: relative;
 }
 
 .form__field {
@@ -75,7 +92,7 @@
     width: 260px;
   }
   .form__submit-button-log-reg {
-    margin: 215px 0 20px 0;
+    margin: 20px 0 20px 0;
     width: 260px;
     font-size: 12px;
     line-height: 14px;
@@ -87,5 +104,8 @@
   .form-link {
     font-size: 12px;
     line-height: 14px;
+  }
+  .serverErrorStatus {
+    margin-top: 200px;
   }
 }

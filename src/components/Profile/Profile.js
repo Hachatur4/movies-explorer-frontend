@@ -1,10 +1,17 @@
 import { React, useState } from "react";
 import FormInput from "../FormInput/FormInput";
 
-function Profile() {
+function Profile({
+  errorText,
+  currentUser,
+  setProfileErrorText,
+  handleUpdateUser,
+  handleLogout,
+  setpreloaderActive
+}) {
   const [values, setValues] = useState({
-    name: "Lala",
-    email: "Lulu",
+    name: "",
+    email: "",
   });
   const [errorStatus, setErrorStatus] = useState({});
 
@@ -19,7 +26,7 @@ function Profile() {
       errorMessage: "Некорректное поле Имя",
       errorMessageClassName: "profile-name-input-error",
       label: "",
-      pattern: "[A-Za-zА-Яа-яЁё]{8,40}",
+      pattern: "[A-Za-zА-Яа-яЁё]{2,40}",
       required: true,
       disabled: true,
     },
@@ -47,7 +54,18 @@ function Profile() {
     if (!(errorStatus.name === true && errorStatus.email === true)) {
       return console.log("ПРОВЕРКА НЕ ПРОЙДЕНА");
     }
+    if (
+      values.name === currentUser.name ||
+      values.email === currentUser.email
+    ) {
+      return setProfileErrorText(
+        "Не используйте старое Имя пользователя и E-mail"
+      );
+    }
     submitButtonActive();
+    setProfileErrorText("");
+    setpreloaderActive(true);
+    handleUpdateUser(values);
     return console.log("ПРОВЕРКА ПРОЙДЕНА");
   }
 
@@ -60,6 +78,7 @@ function Profile() {
       "none";
     document.querySelector(".form-input-value-box").style.display = "flex";
   }
+  
   function editButton() {
     document.querySelectorAll(".form__input-profile").forEach((input) => {
       return input.removeAttribute("disabled");
@@ -73,7 +92,7 @@ function Profile() {
   return (
     <section className="profile-page">
       <div className="profile-container">
-        <h3 className="page__title">{`Привет, ${"Пока статично"}!`}</h3>
+        <h3 className="page__title">{`Привет, ${currentUser.name}!`}</h3>
         <form
           name="form-profile"
           className="form-profile"
@@ -90,16 +109,20 @@ function Profile() {
                   setErrorStatus={setErrorStatus}
                   errorStatus={errorStatus}
                   valueCheck={values}
+                  button='form__submit-button-profile'
                 />
               ))}
               <div className="form-input-value-box">
-                <h3 className="form-input-value">Пока значения</h3>
-                <h3 className="form-input-value">статичны</h3>
+                <h3 className="form-input-value">{currentUser.name}</h3>
+                <h3 className="form-input-value">{currentUser.email}</h3>
               </div>
             </div>
-            <button type="submit" className={`form__submit-button-profile`}>
-              Сохранить
-            </button>
+            <div className="buttonErrorBox">
+              <span className="serverErrorStatusProfile">{errorText}</span>
+              <button type="submit" className={`form__submit-button-profile`}>
+                Сохранить
+              </button>
+            </div>
           </fieldset>
         </form>
         <div className="profile-button-container">
@@ -113,6 +136,7 @@ function Profile() {
           <button
             type="submit"
             className={`profile-button profile-button_exit`}
+            onClick={handleLogout}
           >
             Выйти из аккаунта
           </button>

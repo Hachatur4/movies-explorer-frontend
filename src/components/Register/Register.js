@@ -1,10 +1,13 @@
-import {React, useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import LinkIcon from '../../images/Link-icon.svg'
-import FormInput from '../FormInput/FormInput';
-import Form from '../Form/Form';
+import { React, useState } from "react";
+import { Link } from "react-router-dom";
+import LinkIcon from "../../images/Link-icon.svg";
+import Form from "../Form/Form";
 
-function Register() {
+function Register({
+  errorText,
+  handleUserRegister,
+  setpreloaderActive
+}) {
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -20,10 +23,10 @@ function Register() {
       className: "form__input-log-reg form__input-name",
       formFieldClassName: "form__field",
       placeholder: "",
-      errorMessage:"Некорректное поле Имя",
+      errorMessage: "Некорректное поле Имя",
       errorMessageClassName: "name-input-error",
       label: "Имя",
-      pattern: "[A-Za-zА-Яа-яЁё]{2,40}",
+      pattern: "[A-Za-zА-Яа-яЁё]{2,30}",
       required: true,
     },
     {
@@ -33,10 +36,10 @@ function Register() {
       className: "form__input-log-reg form__input-email",
       formFieldClassName: "form__field",
       placeholder: "",
-      errorMessage:"Некорректное поле E-mail",
+      errorMessage: "Некорректное поле E-mail",
       errorMessageClassName: "email-input-error",
       label: "E-mail",
-      pattern: "^([^ ]+@[^ ]+\.[a-z]{2,6}|)$",
+      pattern: "^([^ ]+@[^ ]+.[a-z]{2,6}|)$",
       required: true,
     },
     {
@@ -46,52 +49,61 @@ function Register() {
       className: "form__input-log-reg form__input-password",
       formFieldClassName: "form__field",
       placeholder: "Пароль",
-      errorMessage: "Некорректное поле Password (Используйте только буквы и цифры)",
+      errorMessage:
+        "Некорректное поле Password (Используйте только буквы и цифры)",
       errorMessageClassName: "password-input-error",
       label: "Пароль",
       pattern: "[A-Za-zА-Яа-яЁё0-9]{8,200}",
       required: true,
-    }
+    },
   ];
   const onChangeValues = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-
-  function submit (e) {
+  function submit(e) {
     e.preventDefault();
-    if(!(errorStatus.name === true && errorStatus.email === true && errorStatus.password === true)){
-      return console.log("ПРОВЕРКА НЕ ПРОЙДЕНА")
+    if (
+      !(
+        errorStatus.name === true &&
+        errorStatus.email === true &&
+        errorStatus.password === true
+      )
+    ) {
+      return console.log("ПРОВЕРКА НЕ ПРОЙДЕНА");
     }
-      return console.log("ПРОВЕРКА ПРОЙДЕНА")
+    handleUserRegister(values);
+    setpreloaderActive(true)
+    return console.log("ПРОВЕРКА ПРОЙДЕНА");
   }
 
   return (
     <section className="signInPage">
-        <div className="signIn__container">
-          <Link to="/">
+      <div className="signIn__container">
+        <Link to="/">
           <img
             className="signIn__image"
             src={LinkIcon}
             alt="Логотип с сылкой"
           />
         </Link>
-          <h3 className="signIn___title">Добро пожаловать!</h3>
-          <Form
-            submit={submit}
-            inputs={inputs}
-            onChangeValues={onChangeValues}
-            setErrorStatus={setErrorStatus}
-            errorStatus={errorStatus}
-            values={values}
-            buttonText={'Зарегистрироваться'}
-            linkTitle={'Уже зарегистрированы?'}
-            linkRoad={"login"}
-            linkRoadTitle={'Войти'}
-          />
-        </div>
-      </section>
+        <h3 className="signIn___title">Добро пожаловать!</h3>
+        <Form
+          submit={submit}
+          inputs={inputs}
+          onChangeValues={onChangeValues}
+          setErrorStatus={setErrorStatus}
+          errorStatus={errorStatus}
+          values={values}
+          buttonText={"Зарегистрироваться"}
+          linkTitle={"Уже зарегистрированы?"}
+          linkRoad={"login"}
+          linkRoadTitle={"Войти"}
+          errorText={errorText}
+        />
+      </div>
+    </section>
   );
-} 
+}
 
-export default Register
+export default Register;

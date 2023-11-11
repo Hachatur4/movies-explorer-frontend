@@ -21,6 +21,10 @@
   line-height: 14px;
   color: #ffffff;
   margin: 50px 0 80px 0;
+  cursor: pointer;
+}
+.card-list__button:hover {
+  opacity: 70%;
 }
 
 @media screen and (min-width: 500px) and (max-width: 780px) {
