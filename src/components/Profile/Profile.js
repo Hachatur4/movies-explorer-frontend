@@ -64,10 +64,10 @@ function Profile({
         "Не используйте старое Имя пользователя и E-mail"
       );
     }
-    submitButtonActive();
+    // submitButtonActive();
     setProfileErrorText("");
     setpreloaderActive(true);
-    handleUpdateUser(values);
+    handleUpdateUser(values, submitButtonActive);
     return console.log("ПРОВЕРКА ПРОЙДЕНА");
   }
 

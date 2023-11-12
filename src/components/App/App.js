@@ -230,17 +230,22 @@ function App() {
     handleCardDelete(cardData.movieId, "");
   }
 
-  function handleUpdateUser(data) {
+  function handleUpdateUser(data, submitButtonActive) {
     mainApi
       .updateUserInfo(data)
       .then((res) => {
         setCurrentUser(res.user);
         setpreloaderActive(false);
-        setTooltipStatus(true)
+        setTooltipStatus(true);
+        submitButtonActive();
       })
       .catch((err) => {
         setpreloaderActive(false);
         console.log(`catch: ${err}`);
+        if (err === "Ошибка 409") {
+          setProfileErrorText("Данная почта не может быть использованна");
+        }
+        setProfileErrorText(err);
       });
   }
 
