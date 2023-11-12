@@ -20,7 +20,6 @@ const FormInput = (props) => {
   const [inputValue, setInputValue] = useState({
     inputName: "",
   });
-console.log(value)
   const patternTest = pattern;
   const regexPattern = new RegExp(patternTest);
   const errorMessageText = document.querySelector(`.${errorMessageClassName}`);

@@ -16,6 +16,7 @@ import * as MoviesApi from "../../utils/MoviesApi";
 import * as auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
 import Preloader from "../Preloader/Preloader";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -28,6 +29,8 @@ function App() {
   const [cardLikeButton, setCardLikeButton] = useState(false);
   const [preloaderActive, setpreloaderActive] = useState(false);
   const [width, setWidth] = useState({});
+  const [seachTabMemoryActive, setSeachTabMemoryActive] = useState(false);
+  const [tooltipStatus, setTooltipStatus] = useState(false);
   const [windowSizeRange, setWindowSizeRange] = useState({
     start: "",
     limit: "",
@@ -36,7 +39,6 @@ function App() {
     inputValue: "",
     checkbox: false,
   });
-  const [seachTabMemoryActive, setSeachTabMemoryActive] = useState(false);
 
   const navigate = useNavigate();
 
@@ -57,8 +59,8 @@ function App() {
           }
         })
         .catch((err) => {
-          setpreloaderActive(false)
-          console.log(`catch: ${err}`)
+          setpreloaderActive(false);
+          console.log(`catch: ${err}`);
         });
     }
   };
@@ -234,6 +236,7 @@ function App() {
       .then((res) => {
         setCurrentUser(res.user);
         setpreloaderActive(false);
+        setTooltipStatus(true)
       })
       .catch((err) => {
         setpreloaderActive(false);
@@ -248,11 +251,11 @@ function App() {
   }
 
   function changeMoviesData(data) {
-    setpreloaderActive(false)
+    setpreloaderActive(false);
     setArrayCard(data);
   }
   function changeSaveMoviesData(data) {
-    setpreloaderActive(false)
+    setpreloaderActive(false);
     setSaveArrayCard(data);
   }
 
@@ -360,6 +363,12 @@ function App() {
         </Routes>
         <Footer />
         {preloaderActive && <Preloader />}
+        {tooltipStatus && (
+          <InfoTooltip
+            tooltipStatus={tooltipStatus}
+            setTooltipStatus={setTooltipStatus}
+          />
+        )}
       </div>
     </CurrentUserContext.Provider>
   );
