@@ -61,7 +61,7 @@
 
 .form__submit-button-log-reg_unvalid {
   color: #c2c2c2;
-  background-color: #f8f8f8;
+  opacity: 15%;
 }
 
 .form__submit-button-log-reg:hover {
