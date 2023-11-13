@@ -4,8 +4,9 @@ function FormSearchProcessing({
   setNotSeacrhMovie,
   changeMoviesData,
   setpreloaderActive,
+  checkStatus,
 }) {
-  if (searchMovieFormData.checkbox === true) {
+  if (checkStatus === true) {
     const moviesSearchDuration = arrayCard.filter((movie) => {
       if (
         movie.nameRU
@@ -27,7 +28,12 @@ function FormSearchProcessing({
       return setNotSeacrhMovie(true);
     }
     setNotSeacrhMovie(false);
-    return changeMoviesData(moviesSearchDuration);
+
+    return changeMoviesData({
+      movieArray: moviesSearchDuration,
+      inputValue: searchMovieFormData.inputValue,
+      checkbox: true,
+    });
   }
 
   const moviesSearch = arrayCard.filter((movie) => {
@@ -50,7 +56,11 @@ function FormSearchProcessing({
     return setNotSeacrhMovie(true);
   }
   setNotSeacrhMovie(false);
-  return changeMoviesData(moviesSearch);
+  return changeMoviesData({
+    movieArray: moviesSearch,
+    inputValue: searchMovieFormData.inputValue,
+    checkbox: false,
+  });
 }
 
 export default FormSearchProcessing;

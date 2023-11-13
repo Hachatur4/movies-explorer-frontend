@@ -99,6 +99,10 @@
   margin-left: 30px;
   margin-right: 30px;
 }
+.search__form-checkbox {
+  display: none;
+}
+
 .search__form-input-filter {
   display: block;
   content: "";

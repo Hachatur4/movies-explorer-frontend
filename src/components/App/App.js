@@ -39,7 +39,7 @@ function App() {
   });
   const [searchMovieFormData, setSearchMovieFormData] = useState({
     inputValue: "",
-    checkbox: true,
+    checkbox: false,
   });
 
   const navigate = useNavigate();
@@ -81,7 +81,7 @@ function App() {
         .getAppInfo()
         .then(([movies, userData]) => {
           setSaveArrayCard(movies);
-          setSaveArrayCardForSeacrh(movies)
+          setSaveArrayCardForSeacrh(movies);
           setCurrentUser(userData.user);
           setArrayCardForSeacrh(arrayCardForSeacrhLocalStor);
           getMoviesData();
@@ -153,7 +153,7 @@ function App() {
       .getInitialCardsMovie()
       .then((movies) => {
         setSaveArrayCard(movies);
-        setSaveArrayCardForSeacrh(movies)
+        setSaveArrayCardForSeacrh(movies);
       })
       .catch((err) => console.log(`catch: ${err}`));
   }
@@ -269,13 +269,15 @@ function App() {
   }
 
   function changeMoviesData(data) {
-    console.log("YA TUT");
+    console.log(data);
     setpreloaderActive(false);
-    setArrayCard(data);
+    setArrayCard(data.movieArray);
+    const movieArraySearchToLocalStorage = JSON.stringify(data);
+    localStorage.setItem("movieArraySearch", movieArraySearchToLocalStorage);
   }
   function changeSaveMoviesData(data) {
     setpreloaderActive(false);
-    setSaveArrayCard(data);
+    setSaveArrayCard(data.movieArray);
   }
 
   function getMoviesData() {

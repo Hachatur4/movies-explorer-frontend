@@ -11,6 +11,7 @@ function SearchForm({
   setpreloaderActive,
 }) {
   const checkboxElement = document.querySelector(".search__form-input-filter");
+  const checkboxStatus = document.querySelector(".search__form-checkbox");
   const onChange = (e) => {
     searchData({
       ...searchMovieFormData,
@@ -25,22 +26,15 @@ function SearchForm({
   }
 
   function clickCheckbox() {
-    if (
-      checkboxElement.classList.contains("search__form-input-filter-custom")
-    ) {
+    if (checkboxStatus.checked) {
+      console.log(`Checkbox is checked!`);
+      checkboxElement.classList.add("search__form-input-filter-custom");
+      return submitProcessingData(true);
+    } else {
+      console.log(`Checkbox is not checked.`);
       checkboxElement.classList.remove("search__form-input-filter-custom");
-      searchData({
-        ...searchMovieFormData,
-        checkbox: true,
-      });
-      return submitProcessingData();
+      return submitProcessingData(false);
     }
-    checkboxElement.classList.add("search__form-input-filter-custom");
-    searchData({
-      ...searchMovieFormData,
-      checkbox: false,
-    });
-    return submitProcessingData();
   }
 
   function submit(e) {
@@ -49,18 +43,20 @@ function SearchForm({
     if (searchMovieFormData.inputValue === "") {
       return (error.style.display = "block");
     }
+    console.log("submit", searchMovieFormData.checkbox);
     error.style.display = "none";
     setpreloaderActive(true);
-    submitProcessingData();
+    return clickCheckbox();
   }
 
-  function submitProcessingData() {
+  function submitProcessingData(checkStatus) {
     FormSearchProcessing({
       searchMovieFormData,
       arrayCard,
       setNotSeacrhMovie,
       changeMoviesData,
       setpreloaderActive,
+      checkStatus,
     });
   }
 
@@ -87,12 +83,13 @@ function SearchForm({
           <span className="search__form-line"></span>
           <div className="search__form-box">
             <label className="search__form-field">
+              <span className="search__form-input-filter"></span>
               <input
-                type="button"
-                className={`search__form-input-filter ${checkboxStatusMemory()} `}
+                type="checkbox"
+                className={`search__form-checkbox  ${checkboxStatusMemory()} `}
                 onClick={clickCheckbox}
               />
-              <span className="search__form-input-filter-custom"></span>
+              {/* <span className="search__form-input-filter-custom"></span> */}
             </label>
             <p className="search__form-input-filter-title">Короткометражки</p>
           </div>
