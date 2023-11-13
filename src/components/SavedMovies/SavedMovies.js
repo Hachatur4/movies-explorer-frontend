@@ -15,7 +15,7 @@ function SavedMovies({
   const [cardLength, setCardLength] = useState([]);
   const [searchSaveMovieFormData, setSearchSaveMovieFormData] = useState({
     inputValue: "",
-    checkbox: false,
+    checkbox: true,
   });
   const [notSeacrhMovie, setNotSeacrhMovie] = useState(false);
 
@@ -56,7 +56,7 @@ function SavedMovies({
   return (
     <div className="movies-container">
       <SearchForm
-        SearchData={setSearchSaveMovieFormData}
+        searchData={setSearchSaveMovieFormData}
         searchMovieFormData={searchSaveMovieFormData}
         setNotSeacrhMovie={setNotSeacrhMovie}
         arrayCard={saveArrayCardForSeacrh}

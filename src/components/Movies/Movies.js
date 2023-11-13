@@ -103,7 +103,7 @@ function Movies({
   return (
     <div className="movies-container">
       <SearchForm
-        SearchData={setSearchMovieFormData}
+        searchData={setSearchMovieFormData}
         arrayCard={arrayCardForSeacrh}
         searchMovieFormData={searchMovieFormData}
         seachTabMemoryActive={seachTabMemoryActive}

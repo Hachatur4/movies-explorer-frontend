@@ -39,7 +39,7 @@ function App() {
   });
   const [searchMovieFormData, setSearchMovieFormData] = useState({
     inputValue: "",
-    checkbox: false,
+    checkbox: true,
   });
 
   const navigate = useNavigate();

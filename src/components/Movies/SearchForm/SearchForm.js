@@ -2,7 +2,7 @@ import searchLupa from "../../../images/search-icon-lupa.svg";
 import FormSearchProcessing from "../FormSearchProcessing/FormSearchProcessing";
 
 function SearchForm({
-  SearchData,
+  searchData,
   searchMovieFormData,
   seachTabMemoryActive,
   arrayCard,
@@ -11,18 +11,17 @@ function SearchForm({
   setpreloaderActive,
 }) {
   const checkboxElement = document.querySelector(".search__form-input-filter");
-
   const onChange = (e) => {
-    SearchData({
+    searchData({
       ...searchMovieFormData,
       inputValue: e.target.value,
     });
   };
 
   function checkboxStatusMemory() {
-    if (seachTabMemoryActive) {
-      return searchMovieFormData.checkbox && "search__form-input-filter-custom";
-    }
+    // if (seachTabMemoryActive) {
+    //   return searchMovieFormData.checkbox && "search__form-input-filter-custom";
+    // }
   }
 
   function clickCheckbox() {
@@ -30,26 +29,32 @@ function SearchForm({
       checkboxElement.classList.contains("search__form-input-filter-custom")
     ) {
       checkboxElement.classList.remove("search__form-input-filter-custom");
-      return SearchData({
+      searchData({
         ...searchMovieFormData,
-        checkbox: "false",
+        checkbox: true,
       });
+      return submitProcessingData();
     }
     checkboxElement.classList.add("search__form-input-filter-custom");
-    return SearchData({
+    searchData({
       ...searchMovieFormData,
-      checkbox: "true",
+      checkbox: false,
     });
+    return submitProcessingData();
   }
 
   function submit(e) {
     e.preventDefault();
     const error = document.querySelector(".search-form__input-error");
-    if (SearchData.inputValue === "") {
+    if (searchMovieFormData.inputValue === "") {
       return (error.style.display = "block");
     }
     error.style.display = "none";
     setpreloaderActive(true);
+    submitProcessingData();
+  }
+
+  function submitProcessingData() {
     FormSearchProcessing({
       searchMovieFormData,
       arrayCard,

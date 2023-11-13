@@ -3,9 +3,9 @@ function FormSearchProcessing({
   arrayCard,
   setNotSeacrhMovie,
   changeMoviesData,
-  setpreloaderActive
+  setpreloaderActive,
 }) {
-  if (searchMovieFormData.checkbox === "true") {
+  if (searchMovieFormData.checkbox === true) {
     const moviesSearchDuration = arrayCard.filter((movie) => {
       if (
         movie.nameRU
@@ -23,7 +23,7 @@ function FormSearchProcessing({
       return setNotSeacrhMovie(true);
     });
     if (moviesSearchDuration.length === 0) {
-      setpreloaderActive(false)
+      setpreloaderActive(false);
       return setNotSeacrhMovie(true);
     }
     setNotSeacrhMovie(false);
@@ -42,11 +42,11 @@ function FormSearchProcessing({
       setNotSeacrhMovie(false);
       return movie;
     }
-    setpreloaderActive(false)
+    setpreloaderActive(false);
     return setNotSeacrhMovie(true);
   });
   if (moviesSearch.length === 0) {
-    setpreloaderActive(false)
+    setpreloaderActive(false);
     return setNotSeacrhMovie(true);
   }
   setNotSeacrhMovie(false);
