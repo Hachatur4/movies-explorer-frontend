@@ -10,16 +10,26 @@ function SearchForm({
   setNotSeacrhMovie,
   changeMoviesData,
   setpreloaderActive,
+  checkedStatusLS,
 }) {
+  console.log(searchMovieFormData);
+
   useEffect(() => {
+    const аrrayCardForSeacrhLocal = JSON.stringify(arrayCard);
+    localStorage.setItem("аrrayCardForSeacrhLocal", аrrayCardForSeacrhLocal);
+  }, [arrayCard]);
 
-  const аrrayCardForSeacrhLocal = JSON.stringify(arrayCard);
-  localStorage.setItem(
-    "аrrayCardForSeacrhLocal",
-    аrrayCardForSeacrhLocal
-  );
-
-}, [arrayCard]);
+  useEffect(() => {
+    const checkboxElement = document.querySelector(
+      ".search__form-input-filter"
+    );
+    if (searchMovieFormData.checkbox === true) {
+      document.querySelector(".search__form-checkbox").checked = true;
+      return checkboxElement.classList.add("search__form-input-filter-custom");
+    }
+    document.querySelector(".search__form-checkbox").checked = false;
+    return checkboxElement.classList.remove("search__form-input-filter-custom");
+  }, [checkedStatusLS]);
 
   const checkboxElement = document.querySelector(".search__form-input-filter");
   const checkboxStatus = document.querySelector(".search__form-checkbox");
@@ -29,12 +39,6 @@ function SearchForm({
       inputValue: e.target.value,
     });
   };
-
-  function checkboxStatusMemory() {
-    // if (seachTabMemoryActive) {
-    //   return searchMovieFormData.checkbox && "search__form-input-filter-custom";
-    // }
-  }
 
   function clickCheckbox() {
     if (checkboxStatus.checked) {
@@ -94,10 +98,9 @@ function SearchForm({
               <span className="search__form-input-filter"></span>
               <input
                 type="checkbox"
-                className={`search__form-checkbox  ${checkboxStatusMemory()} `}
+                className="search__form-checkbox"
                 onClick={clickCheckbox}
               />
-              {/* <span className="search__form-input-filter-custom"></span> */}
             </label>
             <p className="search__form-input-filter-title">Короткометражки</p>
           </div>

@@ -15,7 +15,7 @@ function SavedMovies({
   const [cardLength, setCardLength] = useState([]);
   const [searchSaveMovieFormData, setSearchSaveMovieFormData] = useState({
     inputValue: "",
-    checkbox: true,
+    checkbox: false,
   });
   const [notSeacrhMovie, setNotSeacrhMovie] = useState(false);
 

@@ -16,7 +16,8 @@ function Movies({
   setSearchMovieFormData,
   seachTabMemoryActive,
   setpreloaderActive,
-  arrayCardForSeacrh
+  arrayCardForSeacrh,
+  checkedStatusLS
 }) {
   const [cardLength, setCardLength] = useState([]);
   const [fullCardArray, setfullCardArray] = useState(arrayCard);
@@ -102,6 +103,7 @@ function Movies({
         setNotSeacrhMovie={setNotSeacrhMovie}
         changeMoviesData={changeMoviesData}
         setpreloaderActive={setpreloaderActive}
+        checkedStatusLS={checkedStatusLS}
       />
       {notSeacrhMovie ? (
         <NotMovieTitle title={"Ничего не найдено"} />

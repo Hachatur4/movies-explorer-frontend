@@ -25,6 +25,7 @@ function App() {
   const [saveArrayCardForSeacrh, setSaveArrayCardForSeacrh] = useState([]);
   const [arrayCard, setArrayCard] = useState([]);
   const [arrayCardForSeacrh, setArrayCardForSeacrh] = useState([]);
+  const [checkedStatusLS, setCheckedStatusLS] = useState(false);
   const [loginErrorText, setLoginErrorText] = useState("");
   const [registerErrorText, setRegisterErrorText] = useState("");
   const [profileErrorText, setProfileErrorText] = useState("");
@@ -99,6 +100,11 @@ function App() {
 
   function localStorageCheck(arrayMovieSearch) {
     setArrayCard(arrayMovieSearch.movieArray);
+    setSearchMovieFormData({
+      inputValue: arrayMovieSearch.inputValue,
+      checkbox: arrayMovieSearch.checkbox,
+    });
+    setCheckedStatusLS(true);
     return navigate("/movies", { replace: true });
   }
 
@@ -339,6 +345,7 @@ function App() {
                 seachTabMemoryActive={seachTabMemoryActive}
                 setpreloaderActive={setpreloaderActive}
                 arrayCardForSeacrh={arrayCardForSeacrh}
+                checkedStatusLS={checkedStatusLS}
               />
             }
           />
