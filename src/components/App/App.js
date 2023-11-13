@@ -68,9 +68,8 @@ function App() {
   };
 
   useEffect(() => {
-    const stringLocalMovie = localStorage.getItem("movieArray");
-    const stringSearchTabMemory = localStorage.getItem("searchTabMemory");
-    const arraySearchTabMemory = JSON.parse(stringSearchTabMemory);
+    const stringArrayMovieSearch = localStorage.getItem("movieArraySearch");
+    const arrayMovieSearch = JSON.parse(stringArrayMovieSearch);
     const fullArrayCardForSearch = localStorage.getItem(
       "аrrayCardForSeacrhLocal"
     );
@@ -84,29 +83,22 @@ function App() {
           setSaveArrayCardForSeacrh(movies);
           setCurrentUser(userData.user);
           setArrayCardForSeacrh(arrayCardForSeacrhLocalStor);
-          getMoviesData();
         })
         .then((res) => {
-          localStorageCheck(stringLocalMovie, arraySearchTabMemory);
+          if (arrayMovieSearch == null) {
+            return getMoviesData();
+          }
+          if (arrayMovieSearch.movieArray.length > 0) {
+            return localStorageCheck(arrayMovieSearch);
+          }
+          return getMoviesData();
         })
         .catch((err) => console.log(`catch: ${err}`));
     }
   }, [loggedIn]);
 
-  function localStorageCheck(stringLocalMovie, arraySearchTabMemory) {
-    if (stringLocalMovie == undefined) {
-      return getMoviesData();
-    }
-    const arrayLocalMovie = JSON.parse(stringLocalMovie);
-    if (arrayLocalMovie.length === 0) {
-      return getMoviesData();
-    }
-    setSearchMovieFormData({
-      inputValue: arraySearchTabMemory.inputValue,
-      checkbox: arraySearchTabMemory.checkbox,
-    });
-    setSeachTabMemoryActive("true");
-    setArrayCard(arrayLocalMovie);
+  function localStorageCheck(arrayMovieSearch) {
+    setArrayCard(arrayMovieSearch.movieArray);
     return navigate("/movies", { replace: true });
   }
 
@@ -269,7 +261,6 @@ function App() {
   }
 
   function changeMoviesData(data) {
-    console.log(data);
     setpreloaderActive(false);
     setArrayCard(data.movieArray);
     const movieArraySearchToLocalStorage = JSON.stringify(data);
@@ -285,12 +276,12 @@ function App() {
       MoviesApi.moviesCards()
         .then((res) => {
           setArrayCard(res);
-          console.log("1111");
           setArrayCardForSeacrh(res);
-          navigate("/movies", { replace: true });
-          const аrrayCardForSeacrh = JSON.stringify(arrayCardForSeacrh);
-          localStorage.setItem("аrrayCardForSeacrhLocal", аrrayCardForSeacrh);
         })
+        .then((res) => {
+          navigate("/movies", { replace: true });
+        })
+
         .catch((err) => console.log(`catch: ${err}`));
     }
   }

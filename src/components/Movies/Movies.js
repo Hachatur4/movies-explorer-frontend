@@ -31,14 +31,6 @@ function Movies({
     }
   }
 
-  // useEffect(() => {
-  //   const movieArray = JSON.stringify(arrayCard);
-  //   localStorage.setItem("movieArray", movieArray);
-
-  //   const searchTabMemory = JSON.stringify(searchMovieFormData);
-  //   localStorage.setItem("searchTabMemory", searchTabMemory);
-  // }, [arrayCard]);
-
   useEffect(() => {
     const disabledButton = () => {
       return (document.querySelector(".card-list__button").style.display =

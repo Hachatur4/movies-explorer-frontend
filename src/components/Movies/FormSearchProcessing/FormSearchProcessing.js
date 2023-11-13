@@ -25,7 +25,12 @@ function FormSearchProcessing({
     });
     if (moviesSearchDuration.length === 0) {
       setpreloaderActive(false);
-      return setNotSeacrhMovie(true);
+      setNotSeacrhMovie(true);
+      return changeMoviesData({
+        movieArray: moviesSearchDuration,
+        inputValue: searchMovieFormData.inputValue,
+        checkbox: true,
+      });
     }
     setNotSeacrhMovie(false);
 
@@ -53,7 +58,12 @@ function FormSearchProcessing({
   });
   if (moviesSearch.length === 0) {
     setpreloaderActive(false);
-    return setNotSeacrhMovie(true);
+    setNotSeacrhMovie(true);
+    return changeMoviesData({
+      movieArray: moviesSearch,
+      inputValue: searchMovieFormData.inputValue,
+      checkbox: false,
+    });
   }
   setNotSeacrhMovie(false);
   return changeMoviesData({

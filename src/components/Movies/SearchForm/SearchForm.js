@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import searchLupa from "../../../images/search-icon-lupa.svg";
 import FormSearchProcessing from "../FormSearchProcessing/FormSearchProcessing";
 
@@ -10,6 +11,16 @@ function SearchForm({
   changeMoviesData,
   setpreloaderActive,
 }) {
+  useEffect(() => {
+
+  const аrrayCardForSeacrhLocal = JSON.stringify(arrayCard);
+  localStorage.setItem(
+    "аrrayCardForSeacrhLocal",
+    аrrayCardForSeacrhLocal
+  );
+
+}, [arrayCard]);
+
   const checkboxElement = document.querySelector(".search__form-input-filter");
   const checkboxStatus = document.querySelector(".search__form-checkbox");
   const onChange = (e) => {
@@ -27,11 +38,9 @@ function SearchForm({
 
   function clickCheckbox() {
     if (checkboxStatus.checked) {
-      console.log(`Checkbox is checked!`);
       checkboxElement.classList.add("search__form-input-filter-custom");
       return submitProcessingData(true);
     } else {
-      console.log(`Checkbox is not checked.`);
       checkboxElement.classList.remove("search__form-input-filter-custom");
       return submitProcessingData(false);
     }
@@ -43,7 +52,6 @@ function SearchForm({
     if (searchMovieFormData.inputValue === "") {
       return (error.style.display = "block");
     }
-    console.log("submit", searchMovieFormData.checkbox);
     error.style.display = "none";
     setpreloaderActive(true);
     return clickCheckbox();
