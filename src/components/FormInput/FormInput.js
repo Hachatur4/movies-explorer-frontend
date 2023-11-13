@@ -15,16 +15,16 @@ const FormInput = (props) => {
     formFieldClassName,
     pattern,
     value,
+    inputValueValidStart,
     ...inputProps
   } = props;
   const [inputValue, setInputValue] = useState({
-    inputName: "",
+    inputName: inputValueValidStart,
   });
   const patternTest = pattern;
   const regexPattern = new RegExp(patternTest);
   const errorMessageText = document.querySelector(`.${errorMessageClassName}`);
   const buttonInActive = document.querySelector(`.${props.button}`);
-
   function valid(e) {
     if (inputValue.inputName === "") {
       buttonInActive.classList.add("form__submit-button-log-reg_unvalid");

@@ -3,11 +3,7 @@ import { Link } from "react-router-dom";
 import LinkIcon from "../../images/Link-icon.svg";
 import Form from "../Form/Form";
 
-function Login({
-  errorText,
-  handleUserLogin,
-  setpreloaderActive
-}) {
+function Login({ errorText, handleUserLogin, setpreloaderActive }) {
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -27,6 +23,7 @@ function Login({
       label: "E-mail",
       pattern: "^([^ ]+@[^ ]+.[a-z]{2,6}|)$",
       required: true,
+      inputValueValidStart: "",
     },
     {
       id: "password-input",
@@ -41,6 +38,7 @@ function Login({
       label: "Пароль",
       pattern: "[A-Za-zА-Яа-яЁё0-9]{8,200}",
       required: true,
+      inputValueValidStart: "",
     },
   ];
   const onChangeValues = (e) => {
@@ -52,7 +50,7 @@ function Login({
     if (!(errorStatus.email === true && errorStatus.password === true)) {
       return console.log("ПРОВЕРКА НЕ ПРОЙДЕНА");
     }
-    setpreloaderActive(true)
+    setpreloaderActive(true);
     handleUserLogin(values);
     return console.log("ПРОВЕРКА ПРОЙДЕНА");
   }

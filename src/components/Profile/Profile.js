@@ -10,8 +10,8 @@ function Profile({
   setpreloaderActive,
 }) {
   const [values, setValues] = useState({
-    name: "",
-    email: "",
+    name: currentUser.name,
+    email: currentUser.email,
   });
   const [errorStatus, setErrorStatus] = useState({});
 
@@ -30,6 +30,7 @@ function Profile({
       required: true,
       disabled: true,
       value: currentUser.name,
+      inputValueValidStart: currentUser.name,
     },
     {
       id: "email-input",
@@ -45,27 +46,45 @@ function Profile({
       required: true,
       disabled: true,
       value: currentUser.email,
+      inputValueValidStart: currentUser.email,
     },
   ];
   const onChangeValues = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
+  function finishValidData() {
+    if (!(errorStatus.name === true && errorStatus.email === true)) {
+      if (errorStatus.name === undefined && errorStatus.name === undefined) {
+        return false;
+      }
+      if (
+        (errorStatus.name === true || errorStatus.name === undefined) &&
+        (errorStatus.email === true || errorStatus.email === undefined)
+      ) {
+        return true;
+      }
+      return false;
+    }
+    return true;
+  }
+
   function submit(e) {
     e.preventDefault();
-    if (!(errorStatus.name === true && errorStatus.email === true)) {
+
+    if (!finishValidData()) {
       return console.log("ПРОВЕРКА НЕ ПРОЙДЕНА");
     }
     if (
-      values.name === currentUser.name ||
+      values.name === currentUser.name &&
       values.email === currentUser.email
     ) {
       return setProfileErrorText(
         "Не используйте старое Имя пользователя и E-mail"
       );
     }
-    // submitButtonActive();
     setProfileErrorText("");
+    submitButtonActive();
     setpreloaderActive(true);
     handleUpdateUser(values, submitButtonActive);
     return console.log("ПРОВЕРКА ПРОЙДЕНА");
@@ -147,3 +166,12 @@ function Profile({
 }
 
 export default Profile;
+
+// if (
+//   values.name === currentUser.name ||
+//   values.email === currentUser.email
+// ) {
+//   return setProfileErrorText(
+//     "Не используйте старое Имя пользователя и E-mail"
+//   );
+// }

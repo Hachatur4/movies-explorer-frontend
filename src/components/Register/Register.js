@@ -3,11 +3,7 @@ import { Link } from "react-router-dom";
 import LinkIcon from "../../images/Link-icon.svg";
 import Form from "../Form/Form";
 
-function Register({
-  errorText,
-  handleUserRegister,
-  setpreloaderActive
-}) {
+function Register({ errorText, handleUserRegister, setpreloaderActive }) {
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -28,6 +24,7 @@ function Register({
       label: "Имя",
       pattern: "[A-Za-zА-Яа-яЁё]{2,30}",
       required: true,
+      inputValueValidStart: "",
     },
     {
       id: "email-input",
@@ -41,6 +38,7 @@ function Register({
       label: "E-mail",
       pattern: "^([^ ]+@[^ ]+.[a-z]{2,6}|)$",
       required: true,
+      inputValueValidStart: "",
     },
     {
       id: "password-input",
@@ -55,6 +53,7 @@ function Register({
       label: "Пароль",
       pattern: "[A-Za-zА-Яа-яЁё0-9]{8,200}",
       required: true,
+      inputValueValidStart: "",
     },
   ];
   const onChangeValues = (e) => {
@@ -73,7 +72,7 @@ function Register({
       return console.log("ПРОВЕРКА НЕ ПРОЙДЕНА");
     }
     handleUserRegister(values);
-    setpreloaderActive(true)
+    setpreloaderActive(true);
     return console.log("ПРОВЕРКА ПРОЙДЕНА");
   }
 

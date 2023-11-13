@@ -175,19 +175,22 @@ function App() {
     auth
       .authorize(values.email, values.password)
       .then((res) => {
-        if (!res) throw new Error("Неправильное имя пользователя или пароль");
-        if (res.token) {
-          localStorage.setItem("jwt", res.token);
-          setLoginErrorText("");
-          setCurrentUser(res.userData);
-          setLoggedIn(true);
-          setpreloaderActive(false);
-        }
+        if (!res) throw "На сервере произошла ошибка.";
+        if (!res.token)
+          throw "При авторизации произошла ошибка. Токен не передан или передан не в том формате.";
+        localStorage.setItem("jwt", res.token);
+        setLoginErrorText("");
+        setCurrentUser(res.userData);
+        setLoggedIn(true);
+        setpreloaderActive(false);
       })
       .catch((err) => {
         setpreloaderActive(false);
-        console.log(err.message);
-        setLoginErrorText(err.message);
+        console.log(err);
+        if (err.status === 401) {
+          return setLoginErrorText("Вы ввели неправильный логин или пароль");
+        }
+        setLoginErrorText(err);
       });
   }
 
