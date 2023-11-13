@@ -1,10 +1,5 @@
 import { React } from "react";
-
-function MoviesCardList({
-  cardLength,
-  addCardButton,
-}) {
-
+function MoviesCardList({ cardLength, addCardButton }) {
   return (
     <>
       <section className="card-list">{cardLength}</section>

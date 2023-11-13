@@ -25,14 +25,16 @@ function App() {
   const [saveArrayCardForSeacrh, setSaveArrayCardForSeacrh] = useState([]);
   const [arrayCard, setArrayCard] = useState([]);
   const [arrayCardForSeacrh, setArrayCardForSeacrh] = useState([]);
+  const [fullCardArray, setfullCardArray] = useState(arrayCard);
+  const [cardLength, setCardLength] = useState([]);
   const [checkedStatusLS, setCheckedStatusLS] = useState(false);
   const [loginErrorText, setLoginErrorText] = useState("");
   const [registerErrorText, setRegisterErrorText] = useState("");
   const [profileErrorText, setProfileErrorText] = useState("");
+  const [defaultMovieView, setDefaultMovieView] = useState("false");
   const [cardLikeButton, setCardLikeButton] = useState(false);
   const [preloaderActive, setpreloaderActive] = useState(false);
   const [width, setWidth] = useState({});
-  const [seachTabMemoryActive, setSeachTabMemoryActive] = useState(false);
   const [tooltipStatus, setTooltipStatus] = useState(false);
   const [windowSizeRange, setWindowSizeRange] = useState({
     start: "",
@@ -41,6 +43,9 @@ function App() {
   const [searchMovieFormData, setSearchMovieFormData] = useState({
     inputValue: "",
     checkbox: false,
+  });
+  const [windowDimension, setWindowDimension] = useState({
+    size: window.innerWidth,
   });
 
   const navigate = useNavigate();
@@ -100,6 +105,7 @@ function App() {
 
   function localStorageCheck(arrayMovieSearch) {
     setArrayCard(arrayMovieSearch.movieArray);
+    setfullCardArray(arrayMovieSearch.movieArray)
     setSearchMovieFormData({
       inputValue: arrayMovieSearch.inputValue,
       checkbox: arrayMovieSearch.checkbox,
@@ -108,24 +114,53 @@ function App() {
     return navigate("/movies", { replace: true });
   }
 
+  function detectSize() {
+    setWindowDimension({
+      size: window.innerWidth,
+    });
+  }
+
+  const debounce = function (func, delay) {
+    let timer;
+    return function () {
+      const context = this;
+      const args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func.apply(context, args);
+      }, delay);
+    };
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", debounce(detectSize, 500));
+    return () => {
+      window.removeEventListener("resize", debounce(detectSize, 500));
+    };
+  }, [windowDimension, arrayCard]);
+
   useEffect(() => {
     if (loggedIn) {
-      const mobile = window.matchMedia("(max-width: 480px)");
+      const mobile = window.matchMedia("(max-width: 708px)");
       const tablet = window.matchMedia(
-        "(min-width: 481px) and (max-width: 770px)"
+        "(min-width: 709px) and (max-width: 849px)"
       );
-
-      const desk = window.matchMedia("(min-width: 771px)");
+      const smallDesk = window.matchMedia(
+        "(min-width: 850px) and (max-width: 1140px)"
+      );
+      const desk = window.matchMedia("(min-width: 1141px)");
       setWidth({
         mobile: mobile.matches,
         tablet: tablet.matches,
+        smallDesk: smallDesk.matches,
         desk: desk.matches,
       });
-      windowSize(mobile, tablet, desk);
+      windowSize(mobile, tablet, smallDesk, desk);
+      setDefaultMovieView(false);
     }
-  }, [loggedIn]);
+  }, [loggedIn, windowDimension, defaultMovieView]);
 
-  function windowSize(mobile, tablet, desk) {
+  function windowSize(mobile, tablet, smallDesk, desk) {
     if (mobile.matches) {
       return setWindowSizeRange({
         start: 0,
@@ -136,6 +171,12 @@ function App() {
       return setWindowSizeRange({
         start: 0,
         limit: 8,
+      });
+    }
+    if (smallDesk.matches) {
+      return setWindowSizeRange({
+        start: 0,
+        limit: 12,
       });
     }
     if (desk.matches) {
@@ -269,9 +310,13 @@ function App() {
   function changeMoviesData(data) {
     setpreloaderActive(false);
     setArrayCard(data.movieArray);
+    setCardLength([]);
+    setfullCardArray(data.movieArray)
+    setDefaultMovieView(true);
     const movieArraySearchToLocalStorage = JSON.stringify(data);
     localStorage.setItem("movieArraySearch", movieArraySearchToLocalStorage);
   }
+
   function changeSaveMoviesData(data) {
     setpreloaderActive(false);
     setSaveArrayCard(data.movieArray);
@@ -283,6 +328,7 @@ function App() {
         .then((res) => {
           setArrayCard(res);
           setArrayCardForSeacrh(res);
+          setfullCardArray(res)
         })
         .then((res) => {
           navigate("/movies", { replace: true });
@@ -342,10 +388,12 @@ function App() {
                 width={width}
                 searchMovieFormData={searchMovieFormData}
                 setSearchMovieFormData={setSearchMovieFormData}
-                seachTabMemoryActive={seachTabMemoryActive}
                 setpreloaderActive={setpreloaderActive}
                 arrayCardForSeacrh={arrayCardForSeacrh}
                 checkedStatusLS={checkedStatusLS}
+                cardLength={cardLength}
+                setCardLength={setCardLength}
+                fullCardArray={fullCardArray}
               />
             }
           />
@@ -359,7 +407,6 @@ function App() {
                 saveArrayCard={saveArrayCard}
                 windowSizeRange={windowSizeRange}
                 changeMoviesData={changeSaveMoviesData}
-                seachTabMemoryActive={seachTabMemoryActive}
                 setpreloaderActive={setpreloaderActive}
                 saveArrayCardForSeacrh={saveArrayCardForSeacrh}
               />

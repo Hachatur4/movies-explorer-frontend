@@ -14,13 +14,13 @@ function Movies({
   width,
   searchMovieFormData,
   setSearchMovieFormData,
-  seachTabMemoryActive,
   setpreloaderActive,
   arrayCardForSeacrh,
-  checkedStatusLS
+  checkedStatusLS,
+  cardLength,
+  setCardLength,
+  fullCardArray,
 }) {
-  const [cardLength, setCardLength] = useState([]);
-  const [fullCardArray, setfullCardArray] = useState(arrayCard);
   const [notSeacrhMovie, setNotSeacrhMovie] = useState(false);
 
   function cardButtonOptions(item) {
@@ -34,13 +34,20 @@ function Movies({
 
   useEffect(() => {
     const disabledButton = () => {
+      console.log("отключаюсь кнопка");
       return (document.querySelector(".card-list__button").style.display =
         "none");
+    };
+    const activateButton = () => {
+      console.log("включаюсь кнопка");
+      return (document.querySelector(".card-list__button").style.display =
+        "block");
     };
 
     const addCard = (start, limit) => {
       const result = arrayCard.slice(start, limit);
-      const card = result.map((card) => {
+      console.log("arrayCard START-LIMIT", start, "----", limit);
+      const cards = result.map((card) => {
         return (
           <Card
             key={card.id}
@@ -63,13 +70,17 @@ function Movies({
         );
       });
 
-      setCardLength(card);
-      if (cardLength.length === fullCardArray.length) {
+      setCardLength(cards);
+      if (
+        cardLength.length === fullCardArray.length - 1 ||
+        cardLength.length === fullCardArray.length
+      ) {
+        console.log("end");
         return disabledButton();
-      }
+      }return activateButton()
+
     };
     addCard(windowSizeRange.start, windowSizeRange.limit);
-
   }, [arrayCard, windowSizeRange]);
 
   const addCardButton = () => {
@@ -83,6 +94,12 @@ function Movies({
       return setWindowSizeRange({
         start: 0,
         limit: cardLength.length + 4,
+      });
+    }
+    if (width.smallDesk) {
+      return setWindowSizeRange({
+        start: 0,
+        limit: cardLength.length + 3,
       });
     }
     if (width.desk) {
@@ -99,7 +116,6 @@ function Movies({
         searchData={setSearchMovieFormData}
         arrayCard={arrayCardForSeacrh}
         searchMovieFormData={searchMovieFormData}
-        seachTabMemoryActive={seachTabMemoryActive}
         setNotSeacrhMovie={setNotSeacrhMovie}
         changeMoviesData={changeMoviesData}
         setpreloaderActive={setpreloaderActive}

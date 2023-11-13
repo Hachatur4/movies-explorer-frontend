@@ -5,15 +5,12 @@ import FormSearchProcessing from "../FormSearchProcessing/FormSearchProcessing";
 function SearchForm({
   searchData,
   searchMovieFormData,
-  seachTabMemoryActive,
   arrayCard,
   setNotSeacrhMovie,
   changeMoviesData,
   setpreloaderActive,
   checkedStatusLS,
 }) {
-  console.log(searchMovieFormData);
-
   useEffect(() => {
     const аrrayCardForSeacrhLocal = JSON.stringify(arrayCard);
     localStorage.setItem("аrrayCardForSeacrhLocal", аrrayCardForSeacrhLocal);
