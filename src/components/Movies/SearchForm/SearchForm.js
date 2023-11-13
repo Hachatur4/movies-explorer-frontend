@@ -8,7 +8,7 @@ function SearchForm({
   arrayCard,
   setNotSeacrhMovie,
   changeMoviesData,
-  setpreloaderActive
+  setpreloaderActive,
 }) {
   const checkboxElement = document.querySelector(".search__form-input-filter");
 
@@ -49,13 +49,14 @@ function SearchForm({
       return (error.style.display = "block");
     }
     error.style.display = "none";
-    setpreloaderActive(true)
-    FormSearchProcessing(
-    {searchMovieFormData,
-    arrayCard,
-    setNotSeacrhMovie,
-    changeMoviesData}
-    );
+    setpreloaderActive(true);
+    FormSearchProcessing({
+      searchMovieFormData,
+      arrayCard,
+      setNotSeacrhMovie,
+      changeMoviesData,
+      setpreloaderActive,
+    });
   }
 
   return (

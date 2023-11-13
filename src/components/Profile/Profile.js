@@ -55,7 +55,7 @@ function Profile({
 
   function finishValidData() {
     if (!(errorStatus.name === true && errorStatus.email === true)) {
-      if (errorStatus.name === undefined && errorStatus.name === undefined) {
+      if (errorStatus.name === undefined && errorStatus.email === undefined) {
         return false;
       }
       if (
@@ -106,6 +106,7 @@ function Profile({
     document.querySelector(".profile-button-container").style.display = "none";
     document.querySelector(".form__submit-button-profile").style.display =
       "block";
+    setProfileErrorText(false);
   }
 
   return (

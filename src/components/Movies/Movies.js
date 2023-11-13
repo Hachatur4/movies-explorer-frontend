@@ -15,7 +15,8 @@ function Movies({
   searchMovieFormData,
   setSearchMovieFormData,
   seachTabMemoryActive,
-  setpreloaderActive
+  setpreloaderActive,
+  arrayCardForSeacrh
 }) {
   const [cardLength, setCardLength] = useState([]);
   const [fullCardArray, setfullCardArray] = useState(arrayCard);
@@ -30,13 +31,13 @@ function Movies({
     }
   }
 
-  useEffect(() => {
-    const movieArray = JSON.stringify(arrayCard);
-    localStorage.setItem("movieArray", movieArray);
+  // useEffect(() => {
+  //   const movieArray = JSON.stringify(arrayCard);
+  //   localStorage.setItem("movieArray", movieArray);
 
-    const searchTabMemory = JSON.stringify(searchMovieFormData);
-    localStorage.setItem("searchTabMemory", searchTabMemory);
-  }, [arrayCard]);
+  //   const searchTabMemory = JSON.stringify(searchMovieFormData);
+  //   localStorage.setItem("searchTabMemory", searchTabMemory);
+  // }, [arrayCard]);
 
   useEffect(() => {
     const disabledButton = () => {
@@ -75,6 +76,7 @@ function Movies({
       }
     };
     addCard(windowSizeRange.start, windowSizeRange.limit);
+
   }, [arrayCard, windowSizeRange]);
 
   const addCardButton = () => {
@@ -102,7 +104,7 @@ function Movies({
     <div className="movies-container">
       <SearchForm
         SearchData={setSearchMovieFormData}
-        arrayCard={arrayCard}
+        arrayCard={arrayCardForSeacrh}
         searchMovieFormData={searchMovieFormData}
         seachTabMemoryActive={seachTabMemoryActive}
         setNotSeacrhMovie={setNotSeacrhMovie}

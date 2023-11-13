@@ -3,6 +3,7 @@ function FormSearchProcessing({
   arrayCard,
   setNotSeacrhMovie,
   changeMoviesData,
+  setpreloaderActive
 }) {
   if (searchMovieFormData.checkbox === "true") {
     const moviesSearchDuration = arrayCard.filter((movie) => {
@@ -21,6 +22,11 @@ function FormSearchProcessing({
       }
       return setNotSeacrhMovie(true);
     });
+    if (moviesSearchDuration.length === 0) {
+      setpreloaderActive(false)
+      return setNotSeacrhMovie(true);
+    }
+    setNotSeacrhMovie(false);
     return changeMoviesData(moviesSearchDuration);
   }
 
@@ -36,8 +42,14 @@ function FormSearchProcessing({
       setNotSeacrhMovie(false);
       return movie;
     }
+    setpreloaderActive(false)
     return setNotSeacrhMovie(true);
   });
+  if (moviesSearch.length === 0) {
+    setpreloaderActive(false)
+    return setNotSeacrhMovie(true);
+  }
+  setNotSeacrhMovie(false);
   return changeMoviesData(moviesSearch);
 }
 

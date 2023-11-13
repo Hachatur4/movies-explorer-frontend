@@ -9,7 +9,8 @@ function SavedMovies({
   buttonAction,
   changeMoviesData,
   windowSizeRange,
-  setpreloaderActive
+  setpreloaderActive,
+  saveArrayCardForSeacrh
 }) {
   const [cardLength, setCardLength] = useState([]);
   const [searchSaveMovieFormData, setSearchSaveMovieFormData] = useState({
@@ -58,7 +59,7 @@ function SavedMovies({
         SearchData={setSearchSaveMovieFormData}
         searchMovieFormData={searchSaveMovieFormData}
         setNotSeacrhMovie={setNotSeacrhMovie}
-        arrayCard={saveArrayCard}
+        arrayCard={saveArrayCardForSeacrh}
         changeMoviesData={changeMoviesData}
         setpreloaderActive={setpreloaderActive}
       />

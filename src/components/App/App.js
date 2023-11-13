@@ -22,7 +22,9 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [saveArrayCard, setSaveArrayCard] = useState([]);
+  const [saveArrayCardForSeacrh, setSaveArrayCardForSeacrh] = useState([]);
   const [arrayCard, setArrayCard] = useState([]);
+  const [arrayCardForSeacrh, setArrayCardForSeacrh] = useState([]);
   const [loginErrorText, setLoginErrorText] = useState("");
   const [registerErrorText, setRegisterErrorText] = useState("");
   const [profileErrorText, setProfileErrorText] = useState("");
@@ -69,13 +71,20 @@ function App() {
     const stringLocalMovie = localStorage.getItem("movieArray");
     const stringSearchTabMemory = localStorage.getItem("searchTabMemory");
     const arraySearchTabMemory = JSON.parse(stringSearchTabMemory);
+    const fullArrayCardForSearch = localStorage.getItem(
+      "аrrayCardForSeacrhLocal"
+    );
+    const arrayCardForSeacrhLocalStor = JSON.parse(fullArrayCardForSearch);
 
     if (loggedIn) {
       mainApi
         .getAppInfo()
         .then(([movies, userData]) => {
           setSaveArrayCard(movies);
+          setSaveArrayCardForSeacrh(movies)
           setCurrentUser(userData.user);
+          setArrayCardForSeacrh(arrayCardForSeacrhLocalStor);
+          getMoviesData();
         })
         .then((res) => {
           localStorageCheck(stringLocalMovie, arraySearchTabMemory);
@@ -144,6 +153,7 @@ function App() {
       .getInitialCardsMovie()
       .then((movies) => {
         setSaveArrayCard(movies);
+        setSaveArrayCardForSeacrh(movies)
       })
       .catch((err) => console.log(`catch: ${err}`));
   }
@@ -259,6 +269,7 @@ function App() {
   }
 
   function changeMoviesData(data) {
+    console.log("YA TUT");
     setpreloaderActive(false);
     setArrayCard(data);
   }
@@ -272,7 +283,11 @@ function App() {
       MoviesApi.moviesCards()
         .then((res) => {
           setArrayCard(res);
+          console.log("1111");
+          setArrayCardForSeacrh(res);
           navigate("/movies", { replace: true });
+          const аrrayCardForSeacrh = JSON.stringify(arrayCardForSeacrh);
+          localStorage.setItem("аrrayCardForSeacrhLocal", аrrayCardForSeacrh);
         })
         .catch((err) => console.log(`catch: ${err}`));
     }
@@ -330,6 +345,7 @@ function App() {
                 setSearchMovieFormData={setSearchMovieFormData}
                 seachTabMemoryActive={seachTabMemoryActive}
                 setpreloaderActive={setpreloaderActive}
+                arrayCardForSeacrh={arrayCardForSeacrh}
               />
             }
           />
@@ -345,6 +361,7 @@ function App() {
                 changeMoviesData={changeSaveMoviesData}
                 seachTabMemoryActive={seachTabMemoryActive}
                 setpreloaderActive={setpreloaderActive}
+                saveArrayCardForSeacrh={saveArrayCardForSeacrh}
               />
             }
           />
