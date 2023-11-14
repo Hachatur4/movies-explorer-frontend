@@ -34,19 +34,16 @@ function Movies({
 
   useEffect(() => {
     const disabledButton = () => {
-      console.log("отключаюсь кнопка");
       return (document.querySelector(".card-list__button").style.display =
         "none");
     };
     const activateButton = () => {
-      console.log("включаюсь кнопка");
       return (document.querySelector(".card-list__button").style.display =
         "block");
     };
 
     const addCard = (start, limit) => {
       const result = arrayCard.slice(start, limit);
-      console.log("arrayCard START-LIMIT", start, "----", limit);
       const cards = result.map((card) => {
         return (
           <Card
@@ -75,7 +72,6 @@ function Movies({
         cardLength.length === fullCardArray.length - 1 ||
         cardLength.length === fullCardArray.length
       ) {
-        console.log("end");
         return disabledButton();
       }return activateButton()
 

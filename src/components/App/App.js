@@ -1,5 +1,11 @@
 import { React, useState, useEffect } from "react";
-import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import {
+  Route,
+  Routes,
+  Navigate,
+  useNavigate,
+  redirect,
+} from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Movies from "../Movies/Movies";
@@ -15,11 +21,12 @@ import NavTab from "../Main/NavTab/NavTab";
 import * as MoviesApi from "../../utils/MoviesApi";
 import * as auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
-import Preloader from "../Preloader/Preloader";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import Preloader from "../Preloader/Preloader";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedInCheck, setloggedInCheck] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [saveArrayCard, setSaveArrayCard] = useState([]);
   const [saveArrayCardForSeacrh, setSaveArrayCardForSeacrh] = useState([]);
@@ -31,7 +38,7 @@ function App() {
   const [loginErrorText, setLoginErrorText] = useState("");
   const [registerErrorText, setRegisterErrorText] = useState("");
   const [profileErrorText, setProfileErrorText] = useState("");
-  const [defaultMovieView, setDefaultMovieView] = useState("false");
+  const [defaultMovieView, setDefaultMovieView] = useState("true");
   const [cardLikeButton, setCardLikeButton] = useState(false);
   const [preloaderActive, setpreloaderActive] = useState(false);
   const [width, setWidth] = useState({});
@@ -47,7 +54,6 @@ function App() {
   const [windowDimension, setWindowDimension] = useState({
     size: window.innerWidth,
   });
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,8 +68,8 @@ function App() {
         .checkToken(jwt)
         .then((res) => {
           if (res) {
-            setCurrentUser(res.user);
             setLoggedIn(true);
+            setCurrentUser(res.user);
           }
         })
         .catch((err) => {
@@ -80,8 +86,8 @@ function App() {
       "аrrayCardForSeacrhLocal"
     );
     const arrayCardForSeacrhLocalStor = JSON.parse(fullArrayCardForSearch);
-
     if (loggedIn) {
+      setpreloaderActive(true);
       mainApi
         .getAppInfo()
         .then(([movies, userData]) => {
@@ -91,6 +97,7 @@ function App() {
           setArrayCardForSeacrh(arrayCardForSeacrhLocalStor);
         })
         .then((res) => {
+          setloggedInCheck(true);
           if (arrayMovieSearch == null) {
             return getMoviesData();
           }
@@ -105,13 +112,13 @@ function App() {
 
   function localStorageCheck(arrayMovieSearch) {
     setArrayCard(arrayMovieSearch.movieArray);
-    setfullCardArray(arrayMovieSearch.movieArray)
+    setfullCardArray(arrayMovieSearch.movieArray);
     setSearchMovieFormData({
       inputValue: arrayMovieSearch.inputValue,
       checkbox: arrayMovieSearch.checkbox,
     });
     setCheckedStatusLS(true);
-    return navigate("/movies", { replace: true });
+    setpreloaderActive(false);
   }
 
   function detectSize() {
@@ -232,6 +239,8 @@ function App() {
         setCurrentUser(res.userData);
         setLoggedIn(true);
         setpreloaderActive(false);
+        navigate("/movies", { replace: true });
+        console.log("open", loggedIn);
       })
       .catch((err) => {
         setpreloaderActive(false);
@@ -303,7 +312,7 @@ function App() {
 
   function handleLogout() {
     setLoggedIn(false);
-    navigate("/login");
+    redirect("/");
     localStorage.clear();
   }
 
@@ -311,7 +320,7 @@ function App() {
     setpreloaderActive(false);
     setArrayCard(data.movieArray);
     setCardLength([]);
-    setfullCardArray(data.movieArray)
+    setfullCardArray(data.movieArray);
     setDefaultMovieView(true);
     const movieArraySearchToLocalStorage = JSON.stringify(data);
     localStorage.setItem("movieArraySearch", movieArraySearchToLocalStorage);
@@ -328,10 +337,11 @@ function App() {
         .then((res) => {
           setArrayCard(res);
           setArrayCardForSeacrh(res);
-          setfullCardArray(res)
+          setfullCardArray(res);
         })
         .then((res) => {
-          navigate("/movies", { replace: true });
+          setpreloaderActive(false);
+          // navigate("/movies", { replace: true });
         })
 
         .catch((err) => console.log(`catch: ${err}`));
@@ -354,84 +364,105 @@ function App() {
           <Route
             path="/login"
             element={
-              <Login
-                errorText={loginErrorText}
-                handleUserLogin={handleUserLogin}
-                setpreloaderActive={setpreloaderActive}
-              />
+              !loggedIn ? (
+                <Login
+                  errorText={loginErrorText}
+                  handleUserLogin={handleUserLogin}
+                  setpreloaderActive={setpreloaderActive}
+                />
+              ) : (
+                <Navigate to="/" replace />
+              )
             }
           />
           <Route
             path="/register"
             element={
-              <Register
-                errorText={registerErrorText}
-                handleUserRegister={handleUserRegister}
-                setpreloaderActive={setpreloaderActive}
-              />
+              !loggedIn ? (
+                <Register
+                  errorText={registerErrorText}
+                  handleUserRegister={handleUserRegister}
+                  setpreloaderActive={setpreloaderActive}
+                />
+              ) : (
+                <Navigate to="/" replace />
+              )
             }
           />
-          <Route
-            path="/movies"
-            element={
-              <ProtectedRouteElement
-                loggedIn={loggedIn}
-                element={Movies}
-                arrayCard={arrayCard}
-                setArrayCard={setArrayCard}
-                buttonAction={fullMovieButtonAction}
-                cardLikeButton={cardLikeButton}
-                saveArrayCard={saveArrayCard}
-                changeMoviesData={changeMoviesData}
-                windowSizeRange={windowSizeRange}
-                setWindowSizeRange={setWindowSizeRange}
-                width={width}
-                searchMovieFormData={searchMovieFormData}
-                setSearchMovieFormData={setSearchMovieFormData}
-                setpreloaderActive={setpreloaderActive}
-                arrayCardForSeacrh={arrayCardForSeacrh}
-                checkedStatusLS={checkedStatusLS}
-                cardLength={cardLength}
-                setCardLength={setCardLength}
-                fullCardArray={fullCardArray}
-              />
-            }
-          />
-          <Route
-            path="/saved-movies"
-            element={
-              <ProtectedRouteElement
-                loggedIn={loggedIn}
-                element={SavedMovies}
-                buttonAction={handleCardDeleteSetting}
-                saveArrayCard={saveArrayCard}
-                windowSizeRange={windowSizeRange}
-                changeMoviesData={changeSaveMoviesData}
-                setpreloaderActive={setpreloaderActive}
-                saveArrayCardForSeacrh={saveArrayCardForSeacrh}
-              />
-            }
-          />
+          {loggedInCheck && (
+            <Route
+              path="/movies"
+              element={
+                <ProtectedRouteElement
+                  loggedIn={loggedIn}
+                  element={Movies}
+                  arrayCard={arrayCard}
+                  setArrayCard={setArrayCard}
+                  buttonAction={fullMovieButtonAction}
+                  cardLikeButton={cardLikeButton}
+                  saveArrayCard={saveArrayCard}
+                  changeMoviesData={changeMoviesData}
+                  windowSizeRange={windowSizeRange}
+                  setWindowSizeRange={setWindowSizeRange}
+                  width={width}
+                  searchMovieFormData={searchMovieFormData}
+                  setSearchMovieFormData={setSearchMovieFormData}
+                  setpreloaderActive={setpreloaderActive}
+                  arrayCardForSeacrh={arrayCardForSeacrh}
+                  checkedStatusLS={checkedStatusLS}
+                  cardLength={cardLength}
+                  setCardLength={setCardLength}
+                  fullCardArray={fullCardArray}
+                />
+              }
+            />
+          )}
+          {loggedInCheck && (
+            <Route
+              path="/saved-movies"
+              element={
+                <ProtectedRouteElement
+                  loggedIn={loggedIn}
+                  element={SavedMovies}
+                  buttonAction={handleCardDeleteSetting}
+                  saveArrayCard={saveArrayCard}
+                  windowSizeRange={windowSizeRange}
+                  changeMoviesData={changeSaveMoviesData}
+                  setpreloaderActive={setpreloaderActive}
+                  saveArrayCardForSeacrh={saveArrayCardForSeacrh}
+                />
+              }
+            />
+          )}
 
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRouteElement
-                loggedIn={loggedIn}
-                element={Profile}
-                handleLogout={handleLogout}
-                errorText={profileErrorText}
-                currentUser={currentUser}
-                handleUpdateUser={handleUpdateUser}
-                setProfileErrorText={setProfileErrorText}
-                setpreloaderActive={setpreloaderActive}
-              />
-            }
-          />
-          <Route
-            path="*"
-            element={loggedIn ? <Navigate to="/" replace /> : <NotFoundError />}
-          />
+          {loggedInCheck && (
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRouteElement
+                  loggedIn={loggedIn}
+                  element={Profile}
+                  handleLogout={handleLogout}
+                  errorText={profileErrorText}
+                  currentUser={currentUser}
+                  handleUpdateUser={handleUpdateUser}
+                  setProfileErrorText={setProfileErrorText}
+                  setpreloaderActive={setpreloaderActive}
+                />
+              }
+            />
+          )}
+          {loggedInCheck && (
+            <Route
+              path="*"
+              element={
+                <ProtectedRouteElement
+                  loggedIn={loggedIn}
+                  element={NotFoundError}
+                />
+              }
+            />
+          )}
         </Routes>
         <Footer />
         {preloaderActive && <Preloader />}

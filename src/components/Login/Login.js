@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import LinkIcon from "../../images/Link-icon.svg";
 import Form from "../Form/Form";
 
-function Login({ errorText, handleUserLogin, setpreloaderActive }) {
+function Login({
+  errorText,
+  handleUserLogin,
+  setpreloaderActive,
+}) {
   const [values, setValues] = useState({
     email: "",
     password: "",
