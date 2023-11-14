@@ -2,10 +2,16 @@
   display: flex;
   flex-direction: column;
   width: 270px;
+  cursor: pointer;
+}
+.card:hover .card__delete-button{
+  opacity: 1;
 }
 .card__image {
   background-repeat: no-repeat;
   background-size: contain;
+  height: 151px;
+  width: 270px;
 }
 .card__description {
   display: flex;
@@ -15,6 +21,7 @@
   justify-content: space-between;
   border-bottom: 1px solid #424242;
   padding-bottom: 25px;
+  height: 59px;
 }
 .card__title {
   font-family: "Inter", "Sans-serif", "Arial";
@@ -23,6 +30,12 @@
   font-size: 13px;
   line-height: 16px;
   color: #ffffff;
+}
+.card__action-button {
+  cursor: pointer;
+}
+.card__action-button:hover {
+  opacity: 70%;
 }
 .card__delete-button {
   width: 24px;
@@ -34,10 +47,6 @@
   border: none;
   background-color: #313131;
   opacity: 0;
-}
-.card__delete-button:hover {
-  background-image: url(../../../images/card-delete-button.svg);
-  opacity: 1;
 }
 
 .card__like-button {
@@ -67,6 +76,13 @@
   .card {
     width: 339px;
   }
+  .card__image {
+    height: 190px;
+    width: 339px;
+  }
+  .card__delete-button {
+    opacity: 1;
+  }
 }
 @media screen and (min-width: 320px) and (max-width: 499px) {
   .card {
@@ -75,5 +91,12 @@
   .card__title {
     font-size: 12px;
     line-height: 15px;
+  }
+  .card__image {
+    height: 168px;
+    width: 300px;
+  }
+  .card__delete-button {
+    opacity: 1;
   }
 }

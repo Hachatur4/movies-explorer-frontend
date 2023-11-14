@@ -6,6 +6,10 @@
 
 Адрес репозитория: https://github.com/Hachatur4/movies-explorer-frontend.git
 
+## Ссылки на pullReguest
+
+https://github.com/Hachatur4/movies-explorer-frontend/pull/3
+
 ## Ссылки на проект
 
 Frontend https://movies.hh.nomoredomainsrocks.ru/

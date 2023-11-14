@@ -12,7 +12,8 @@ function Form({
     buttonText,
     linkTitle,
     linkRoad,
-    linkRoadTitle
+    linkRoadTitle,
+    errorText
 }) {
 
 
@@ -27,8 +28,10 @@ function Form({
                     setErrorStatus={setErrorStatus}
                     errorStatus={errorStatus}
                     valueCheck={values}
+                    button='form__submit-button-log-reg'
                     />
                 ))}
+                <span className='serverErrorStatus'>{errorText}</span>
                 <button type="submit" className={`form__submit-button-log-reg`}>
                     {buttonText}
                 </button>

@@ -99,13 +99,11 @@
   margin-left: 30px;
   margin-right: 30px;
 }
-.search__form-input-filter {
+.search__form-checkbox {
   display: none;
 }
-.search__form-input-filter:checked ~ .search__form-input-filter-custom {
-  background-image: url(../../../images/checkbox-button-background.svg);
-}
-.search__form-input-filter-custom {
+
+.search__form-input-filter {
   display: block;
   content: "";
   width: 36px;
@@ -113,7 +111,12 @@
   background-image: url(../../../images/checkbox-button-background_disable.svg);
   background-size: contain;
   background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
+}
+.search__form-input-filter-custom {
+  background-image: url(../../../images/checkbox-button-background.svg);
 }
 .search__form-input-filter-custom:hover {
   opacity: 70%;

@@ -1,6 +1,8 @@
 .page{
     min-width: 320px;
-    height: max-content;
+    min-height: 100vh;
+    position: relative;
+    height: 100%;
     margin: 0 auto;
     background-color: #202020;
     display: flex;
@@ -12,7 +14,4 @@
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
-  }
-  .page{
-
   }

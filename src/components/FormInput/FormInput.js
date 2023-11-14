@@ -2,7 +2,8 @@ import { useState } from "react";
 import "./FormInput.js";
 
 const FormInput = (props) => {
-  const { setErrorStatus,
+  const {
+    setErrorStatus,
     errorStatus,
     valueCheck,
     label,
@@ -13,47 +14,53 @@ const FormInput = (props) => {
     className,
     formFieldClassName,
     pattern,
+    value,
+    inputValueValidStart,
     ...inputProps
   } = props;
-
   const [inputValue, setInputValue] = useState({
-    inputName: "",
-  })
-
+    inputName: inputValueValidStart,
+  });
   const patternTest = pattern;
   const regexPattern = new RegExp(patternTest);
-  const errorMessageText = document.querySelector(`.${errorMessageClassName}`)
-
-  function valid (e){
-      if (inputValue.inputName === ''){
-        errorMessageText.classList.add('form__input-error_active')
-        return setErrorStatus({ ...errorStatus, [e.target.name]: false })
-      }
-      if(regexPattern.test(inputValue.inputName)){
-        errorMessageText.classList.remove('form__input-error_active')
-        return setErrorStatus({ ...errorStatus, [e.target.name]: true })
-      }
-      errorMessageText.classList.add('form__input-error_active')
-      return setErrorStatus({ ...errorStatus, [e.target.name]: false })
+  const errorMessageText = document.querySelector(`.${errorMessageClassName}`);
+  const buttonInActive = document.querySelector(`.${props.button}`);
+  function valid(e) {
+    if (inputValue.inputName === "") {
+      buttonInActive.classList.add("form__submit-button-log-reg_unvalid");
+      errorMessageText.classList.add("form__input-error_active");
+      return setErrorStatus({ ...errorStatus, [e.target.name]: false });
+    }
+    if (regexPattern.test(inputValue.inputName)) {
+      buttonInActive.classList.remove("form__submit-button-log-reg_unvalid");
+      errorMessageText.classList.remove("form__input-error_active");
+      return setErrorStatus({ ...errorStatus, [e.target.name]: true });
+    }
+    buttonInActive.classList.add("form__submit-button-log-reg_unvalid");
+    errorMessageText.classList.add("form__input-error_active");
+    return setErrorStatus({ ...errorStatus, [e.target.name]: false });
   }
 
   const onChange = (e) => {
     setInputValue({ inputName: e.target.value });
-    onChangeValues(e)
+    onChangeValues(e);
   };
 
   return (
-      <label className={formFieldClassName}>
-        {label}
-        <input
-          {...inputProps}
-          className={className}
-          onChange={onChange}
-          pattern={pattern}
-          onKeyUp={valid}
-        />
-        <span className={`form__input-error ${errorMessageClassName}`}>{errorMessage}</span>
-      </label>
+    <label className={formFieldClassName}>
+      {label}
+      <input
+        {...inputProps}
+        className={className}
+        onChange={onChange}
+        pattern={pattern}
+        onKeyUp={valid}
+        defaultValue={value}
+      />
+      <span className={`form__input-error ${errorMessageClassName}`}>
+        {errorMessage}
+      </span>
+    </label>
   );
 };
 
