@@ -102,6 +102,7 @@
   color: #ffffff;
   border: none;
   margin-top: 20px;
+  cursor: pointer;
 }
 .form__submit-button-profile:hover {
   opacity: 70%;
