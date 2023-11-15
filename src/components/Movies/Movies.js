@@ -35,8 +35,11 @@ function Movies({
   useEffect(() => {
 
     const disabledButton = () => {
-      return (document.querySelector(".card-list__button").style.display =
-        "none");
+      const button = document.querySelector(".card-list__button")
+      if(button === null){
+        return 
+      }
+      return (button.style.display = "none");
     };
     const activateButton = () => {
       return (document.querySelector(".card-list__button").style.display =
@@ -72,9 +75,11 @@ function Movies({
       if (
         cardLength.length === fullCardArray.length - 1 ||
         cardLength.length === fullCardArray.length
-      ) {
+      ) {console.log('dis', cardLength.length , fullCardArray.length)
         return disabledButton();
-      }return activateButton()
+        
+      }console.log('active', cardLength.length , fullCardArray.length)
+      return activateButton()
 
     };
     addCard(windowSizeRange.start, windowSizeRange.limit);
