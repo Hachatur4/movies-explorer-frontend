@@ -10,13 +10,11 @@ function SavedMovies({
   changeMoviesData,
   windowSizeRange,
   setpreloaderActive,
-  saveArrayCardForSeacrh
+  saveArrayCardForSeacrh,
+  searchSaveMovieFormData,
+  setSearchSaveMovieFormData
 }) {
   const [cardLength, setCardLength] = useState([]);
-  const [searchSaveMovieFormData, setSearchSaveMovieFormData] = useState({
-    inputValue: "",
-    checkbox: false,
-  });
   const [notSeacrhMovie, setNotSeacrhMovie] = useState(false);
 
   function cardButtonOptions(item) {}
@@ -62,6 +60,7 @@ function SavedMovies({
         arrayCard={saveArrayCardForSeacrh}
         changeMoviesData={changeMoviesData}
         setpreloaderActive={setpreloaderActive}
+        checkedStatusLS='true'
       />
       {saveArrayCard.length === 0 ? (
         <NotMovieTitle title={"Список сохраненный фильмов пуст"} />

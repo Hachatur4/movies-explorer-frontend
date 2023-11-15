@@ -75,10 +75,10 @@ function Movies({
       if (
         cardLength.length === fullCardArray.length - 1 ||
         cardLength.length === fullCardArray.length
-      ) {console.log('dis', cardLength.length , fullCardArray.length)
+      ) {
         return disabledButton();
         
-      }console.log('active', cardLength.length , fullCardArray.length)
+      }
       return activateButton()
 
     };

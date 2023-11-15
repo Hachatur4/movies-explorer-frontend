@@ -52,6 +52,10 @@ function App() {
     inputValue: "",
     checkbox: false,
   });
+  const [searchSaveMovieFormData, setSearchSaveMovieFormData] = useState({
+    inputValue: "",
+    checkbox: false,
+  });
   const [windowDimension, setWindowDimension] = useState({
     size: window.innerWidth,
   });
@@ -324,6 +328,10 @@ function App() {
   function changeSaveMoviesData(data) {
     setpreloaderActive(false);
     setSaveArrayCard(data.movieArray);
+    setSearchSaveMovieFormData({
+      inputValue: data.inputValue,
+      checkbox: data.checkbox,
+    });
   }
 
   function getMoviesData() {
@@ -429,6 +437,8 @@ function App() {
                   changeMoviesData={changeSaveMoviesData}
                   setpreloaderActive={setpreloaderActive}
                   saveArrayCardForSeacrh={saveArrayCardForSeacrh}
+                  searchSaveMovieFormData={searchSaveMovieFormData}
+                  setSearchSaveMovieFormData={setSearchSaveMovieFormData}
                 />
               )
             }
