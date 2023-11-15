@@ -23,7 +23,6 @@ import * as auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import Preloader from "../Preloader/Preloader";
-import PreloaderPage from "../PreloaderPage/PreloaderPage";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
