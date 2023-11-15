@@ -36,7 +36,7 @@ function Register({ errorText, handleUserRegister, setpreloaderActive }) {
       errorMessage: "Некорректное поле E-mail",
       errorMessageClassName: "email-input-error",
       label: "E-mail",
-      pattern: "^([^ ]+@[^ ]+.[a-z]{2,6}|)$",
+      pattern: "^([^ ]+@[^ ]+\\.[a-z]{2,6}|)$",
       required: true,
       inputValueValidStart: "",
     },
