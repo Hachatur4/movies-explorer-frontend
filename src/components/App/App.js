@@ -399,7 +399,7 @@ function App() {
                   setArrayCard={setArrayCard}
                   buttonAction={fullMovieButtonAction}
                   cardLikeButton={cardLikeButton}
-                  saveArrayCard={saveArrayCard}
+                  saveArrayCard={saveArrayCardForSeacrh}
                   changeMoviesData={changeMoviesData}
                   windowSizeRange={windowSizeRange}
                   setWindowSizeRange={setWindowSizeRange}

@@ -33,6 +33,7 @@ function Movies({
   }
 
   useEffect(() => {
+
     const disabledButton = () => {
       return (document.querySelector(".card-list__button").style.display =
         "none");
