@@ -23,10 +23,10 @@ import * as auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import Preloader from "../Preloader/Preloader";
+import PreloaderPage from "../PreloaderPage/PreloaderPage";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [loggedInCheck, setloggedInCheck] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [saveArrayCard, setSaveArrayCard] = useState([]);
   const [saveArrayCardForSeacrh, setSaveArrayCardForSeacrh] = useState([]);
@@ -41,6 +41,7 @@ function App() {
   const [defaultMovieView, setDefaultMovieView] = useState("true");
   const [cardLikeButton, setCardLikeButton] = useState(false);
   const [preloaderActive, setpreloaderActive] = useState(false);
+  const [preloaderPageActive, setPreloaderPageActive] = useState(false);
   const [width, setWidth] = useState({});
   const [tooltipStatus, setTooltipStatus] = useState(false);
   const [windowSizeRange, setWindowSizeRange] = useState({
@@ -63,22 +64,24 @@ function App() {
   const handleTokenCheck = () => {
     const token = localStorage.getItem("jwt");
     if (token) {
+      setPreloaderPageActive(false);
       const jwt = localStorage.getItem("jwt");
-      auth
+      return auth
         .checkToken(jwt)
         .then((res) => {
           if (res) {
-            setLoggedIn(true);
             setCurrentUser(res.user);
+            setLoggedIn(true);
+            setPreloaderPageActive(true);
           }
+          setPreloaderPageActive(true);
         })
         .catch((err) => {
-          setpreloaderActive(false);
           console.log(`catch: ${err}`);
         });
     }
+    setPreloaderPageActive(true);
   };
-
   useEffect(() => {
     const stringArrayMovieSearch = localStorage.getItem("movieArraySearch");
     const arrayMovieSearch = JSON.parse(stringArrayMovieSearch);
@@ -97,7 +100,6 @@ function App() {
           setArrayCardForSeacrh(arrayCardForSeacrhLocalStor);
         })
         .then((res) => {
-          setloggedInCheck(true);
           if (arrayMovieSearch == null) {
             return getMoviesData();
           }
@@ -140,9 +142,9 @@ function App() {
   };
 
   useEffect(() => {
-    window.addEventListener("resize", debounce(detectSize, 500));
+    window.addEventListener("resize", debounce(detectSize, 300));
     return () => {
-      window.removeEventListener("resize", debounce(detectSize, 500));
+      window.removeEventListener("resize", debounce(detectSize, 300));
     };
   }, [windowDimension, arrayCard]);
 
@@ -240,7 +242,6 @@ function App() {
         setLoggedIn(true);
         setpreloaderActive(false);
         navigate("/movies", { replace: true });
-        console.log("open", loggedIn);
       })
       .catch((err) => {
         setpreloaderActive(false);
@@ -310,12 +311,6 @@ function App() {
       });
   }
 
-  function handleLogout() {
-    setLoggedIn(false);
-    redirect("/");
-    localStorage.clear();
-  }
-
   function changeMoviesData(data) {
     setpreloaderActive(false);
     setArrayCard(data.movieArray);
@@ -341,9 +336,7 @@ function App() {
         })
         .then((res) => {
           setpreloaderActive(false);
-          // navigate("/movies", { replace: true });
         })
-
         .catch((err) => console.log(`catch: ${err}`));
     }
   }
@@ -353,6 +346,12 @@ function App() {
       return <NavTab />;
     }
     return <Header />;
+  }
+
+  function handleLogout() {
+    setLoggedIn(false);
+    redirect("/");
+    localStorage.clear();
   }
 
   return (
@@ -389,10 +388,10 @@ function App() {
               )
             }
           />
-          {loggedInCheck && (
-            <Route
-              path="/movies"
-              element={
+          <Route
+            path="/movies"
+            element={
+              preloaderPageActive && (
                 <ProtectedRouteElement
                   loggedIn={loggedIn}
                   element={Movies}
@@ -414,13 +413,13 @@ function App() {
                   setCardLength={setCardLength}
                   fullCardArray={fullCardArray}
                 />
-              }
-            />
-          )}
-          {loggedInCheck && (
-            <Route
-              path="/saved-movies"
-              element={
+              )
+            }
+          />
+          <Route
+            path="/saved-movies"
+            element={
+              preloaderPageActive && (
                 <ProtectedRouteElement
                   loggedIn={loggedIn}
                   element={SavedMovies}
@@ -431,14 +430,13 @@ function App() {
                   setpreloaderActive={setpreloaderActive}
                   saveArrayCardForSeacrh={saveArrayCardForSeacrh}
                 />
-              }
-            />
-          )}
-
-          {loggedInCheck && (
-            <Route
-              path="/profile"
-              element={
+              )
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              preloaderPageActive && (
                 <ProtectedRouteElement
                   loggedIn={loggedIn}
                   element={Profile}
@@ -449,20 +447,10 @@ function App() {
                   setProfileErrorText={setProfileErrorText}
                   setpreloaderActive={setpreloaderActive}
                 />
-              }
-            />
-          )}
-          {loggedInCheck && (
-            <Route
-              path="*"
-              element={
-                <ProtectedRouteElement
-                  loggedIn={loggedIn}
-                  element={NotFoundError}
-                />
-              }
-            />
-          )}
+              )
+            }
+          />
+          <Route path="*" element={<NotFoundError />} />
         </Routes>
         <Footer />
         {preloaderActive && <Preloader />}
