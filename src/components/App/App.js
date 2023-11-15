@@ -142,9 +142,9 @@ function App() {
   };
 
   useEffect(() => {
-    window.addEventListener("resize", debounce(detectSize, 300));
+    window.addEventListener("resize", debounce(detectSize, 250));
     return () => {
-      window.removeEventListener("resize", debounce(detectSize, 300));
+      window.removeEventListener("resize", debounce(detectSize, 250));
     };
   }, [windowDimension, arrayCard]);
 
